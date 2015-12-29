@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TableRow style="@style/style_tabrow" >
+
+        <TextView
+            android:id="@+id/tv_tip_precinct"
+            style="@style/style_tabcol_left"
+            android:text="选择管理区" />
+
+        <Spinner
+            android:id="@+id/sp_precinct_chooser"
+            style="@style/style_spinner" />
+    </TableRow>
+
+    <TableRow style="@style/style_tabrow" >
+
+        <TextView
+            android:id="@+id/tv_tip_building"
+            style="@style/style_tabcol_left"
+            android:text="选择大楼" />
+
+        <Spinner
+            android:id="@+id/sp_building_chooser"
+            style="@style/style_spinner" />
+    </TableRow>
+
+    <TableRow style="@style/style_tabrow" >
+
+        <TextView
+            android:id="@+id/tv_tip_floor"
+            style="@style/style_tabcol_left"
+            android:text="选择单元" />
+
+        <Spinner
+            android:id="@+id/sp_floor_chooser"
+            style="@style/style_spinner" />
+    </TableRow>
+
+    <TableRow style="@style/style_tabrow" >
+
+        <TextView
+            android:id="@+id/tv_tip_room"
+            style="@style/style_tabcol_left"
+            android:text="选择房间" />
+
+        <Spinner
+            android:id="@+id/sp_room_chooser"
+            style="@style/style_spinner" />
+    </TableRow>
+
+  </TableLayout>

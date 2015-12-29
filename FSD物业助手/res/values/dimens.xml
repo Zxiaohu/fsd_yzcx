@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+
+    <dimen name="micro">12sp</dimen>
+    <dimen name="small">14sp</dimen>
+    <dimen name="medium">18sp</dimen>
+    <dimen name="large">22sp</dimen>
+
+    <dimen name="dimen_720height">48dp</dimen>
+    <dimen name="dimen_720maxspacing">8dp</dimen>
+    <dimen name="dimen_720minspacing">4dp</dimen>
+    <dimen name="login_padding">16dp</dimen>
+</resources>

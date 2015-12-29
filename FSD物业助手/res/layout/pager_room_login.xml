@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue2"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_login_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.382"
+        android:gravity="center"
+        android:text="房号登入"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="@dimen/large" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.618"
+        android:padding="@dimen/login_padding"
+        android:orientation="vertical" >
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            layout="@layout/user_info"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_phone1"
+                style="@style/style_input_base"
+                android:layout_width="0dp"
+                android:layout_weight="0.382"
+                android:gravity="left|center"
+                android:text="确认手机号码:"
+                android:textSize="@dimen/small" />
+
+            <EditText
+                android:id="@+id/et_phonenum"
+                style="@style/style_input_base"
+                android:layout_width="0dp"
+                android:layout_weight="0.382"
+                android:textSize="@dimen/small" />
+
+            <Button
+                android:id="@+id/btn_check_num"
+                style="@style/style_input_base"
+                android:layout_width="0dp"
+                android:layout_weight="0.246"
+                android:gravity="center"
+                android:text="验证"
+                android:textSize="@dimen/small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_yznum"
+                style="@style/style_input_base"
+                android:layout_width="0dp"
+                android:layout_weight="0.382"
+                android:gravity="left|center"
+                android:text="验证码:"
+                android:textSize="@dimen/small" />
+
+            <EditText
+                android:id="@+id/et_yznum"
+                style="@style/style_input_base"
+                android:layout_width="0dp"
+                android:layout_weight="0.382"
+                android:textSize="@dimen/small" />
+
+            <TextView
+                style="@style/style_input_base"
+                android:layout_width="0dp"
+                android:layout_weight="0.246" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/style_btn_base"
+            android:layout_width="match_parent"
+            android:text="登录"
+            android:textSize="@dimen/medium" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_chroom"
+        style="@style/style_input_base"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:text="点我选择房号"
+        android:gravity="center"
+        android:textColor="@color/green"
+        android:textSize="@dimen/medium"
+        android:textStyle="bold" />
+
+</LinearLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_toast_danger"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_toast_danger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_720maxspacing"
+        android:layout_margin="@dimen/dimen_720maxspacing"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="@dimen/medium" />
+
+</LinearLayout>
