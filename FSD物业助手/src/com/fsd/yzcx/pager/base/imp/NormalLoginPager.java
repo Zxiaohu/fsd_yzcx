@@ -1,6 +1,10 @@
 package com.fsd.yzcx.pager.base.imp;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,9 +39,10 @@ public class NormalLoginPager extends BasePager {
 	private EditText et_name;//登录的编号
 	@ViewInject(R.id.et_pwd)
 	private EditText et_pwd;//登录密码
-	
+
 	private MyOnclickimp myOnclickimp;//接口
-	
+	private SharedPreferences preferences;
+
 	public NormalLoginPager(Activity activity) {
 		super(activity);
 	}
@@ -53,22 +58,22 @@ public class NormalLoginPager extends BasePager {
 		setEvent4ChRoom();	
 		//登录操作
 		setEvent4Login();
-		
+
 	}
-	
+
 	private void setEvent4Login() {
 		btn_login.setOnClickListener(new OnClickListener() {
-		public void onClick(View v) {
-			String uid=et_name.getText().toString().trim();
-			String upwd=et_pwd.getText().toString().trim();	
-			//验证合法性
-			if(ForEmptyTool.isAnyEmpty(new Object []{et_name,et_pwd})){
+			public void onClick(View v) {
+				String uid=et_name.getText().toString().trim();
+				String upwd=et_pwd.getText().toString().trim();	
+				//验证合法性
+				if(ForEmptyTool.isAnyEmpty(new Object []{et_name,et_pwd})){
 
-				SystemTools.showToastInfo(mActivity, "请填写完整信息",3000, 1);
-			}else{
-				//请求网络行验证用户名和密码
-				send4serverCh(uid,upwd);
-			};		
+					SystemTools.showToastInfo(mActivity, "请填写完整信息",3000, 1);
+				}else{
+					//请求网络行验证用户名和密码
+					send4serverCh(uid,upwd);
+				};		
 			}
 
 		});
@@ -84,31 +89,54 @@ public class NormalLoginPager extends BasePager {
 		params.addBodyParameter("uname",uid);
 		params.addBodyParameter("upwd",upwd);
 		LogUtil.i("NormalLoginPager", HttpTools.LOGIN);
-		
+
 		HttpTools.send(HttpTools.LOGIN,params, mActivity, new MyHttpListener() {			
 			public void finish(String response) {
 				//去掉中括号将结果解析成对象
 				String newRes=response.substring(1, response.length()-1);
 				LogUtil.d(tag,newRes);
-				
+
 				Gson gson= new Gson();
-				
+
 				//普通登录返回的业主信息
 				YzInfo yzInfo= gson.fromJson(newRes,YzInfo.class);
-				
+
 				LogUtil.w(tag, yzInfo.toString());
-				
+
 				if(yzInfo.flag==1){
 					SystemTools.showToastInfo(mActivity, "登录成功", 3000, 1);
+
+					//将用户的信息写进本地文件
+					writerUserInfo2PF(yzInfo.username,yzInfo.nickname,yzInfo.telephone);
+
 					mActivity.startActivity(new Intent(mActivity,MainActivity.class));
+					
+					mActivity.finish();
+					
 				}else{
 					SystemTools.showToastInfo(mActivity, yzInfo.info, 3000, 2);
 				}		
 			}
+
+
 		},"登录服务器");
 	}
-	
-	
+
+
+	private void writerUserInfo2PF(String username, String nickname,String telephone) {
+
+		preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+				Editor edit = preferences.edit();
+				edit.clear();
+				
+				edit.putString("userfools", nickname);
+				edit.putString("username", telephone);
+				edit.putString("telephone", telephone);
+				
+				LogUtil.e(tag, username+nickname);
+
+				edit.commit();
+	}
 	/**
 	 * 开放选择房号登录
 	 */

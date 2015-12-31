@@ -15,12 +15,13 @@ public class YzInfo {
 	
 	public  int flag;
 	public 	String info;
-	public 	String username;//用户的电话号码
-	public  String nickname;//用户的昵称
+	public 	String username;//用户姓名
+	public  String nickname;//用户的昵称信息
+	public  String telephone;//用户的电话号码
 	@Override
 	public String toString() {
 		return "YzInfo [flag=" + flag + ", info=" + info + ", username="
-				+ username + ", nickname=" + nickname + "]";
+				+ telephone + ", nickname=" + nickname + "]";
 	}
 	
 	

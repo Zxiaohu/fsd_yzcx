@@ -29,8 +29,9 @@ public class HttpTools {
 	public static final String URL = "http://192.168.8.110/aspapp/yzcx/";
 
 	public static final String ROOT = "?sys=android";
-
-	public static final String LOGIN = URL + "applogin.asp" + ROOT;// 登录
+	public static final String APP_LOGIN = URL + "applogin.asp" + ROOT;// 登录
+	
+	public static final String LOGIN = URL + "login.asp" + ROOT;// 登录
 	public static final String NOTICE = URL + "notice.asp" + ROOT;// 公告
 	// 获取管理项的URL
 	public static final String PRECINCT = URL + "precinct.asp" + ROOT;

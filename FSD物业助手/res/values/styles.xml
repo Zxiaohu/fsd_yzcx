@@ -2,21 +2,15 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
+    <style name="AppBaseTheme" parent="android:Theme.Light"></style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="android:windowNoTitle">true</item>
     </style>
-    
+
     <style name="style_tabrow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -44,7 +38,7 @@
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>
     </style>
-    
+
     <!-- 基本的输入控件的样式 -->
     <style name="style_input_base">
         <item name="android:layout_height">@dimen/dimen_720height</item>
@@ -66,12 +60,22 @@
         <item name="android:background">@drawable/seletor_login_btn</item>
     </style>
 
-    <style name="style_et_base" parent="style_input_base"></style>
-
     <style name="styleTtv_title" parent="android:Widget.Holo.Light.TextView">
-        <item name="android:background">@color/red</item>
+        <item name="android:background">@color/blue2</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/large</item>
+        <item name="android:layout_height">@dimen/dimen_720height</item>
+    </style>
+
+    <style name="style_frg_user_item">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/border_line</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/medium</item>
     </style>
+
 </resources>
