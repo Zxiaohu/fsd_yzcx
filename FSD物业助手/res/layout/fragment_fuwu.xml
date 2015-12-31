@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zxh="http://schemas.android.com/apk/res/com.fsd.yzcx" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/styleTtv_title"
+        android:layout_width="match_parent"
+        android:text="@string/fuwu_center" />
+
+    <com.fsd.yzcx.view.UCListItem
+        android:id="@+id/ucli_suggestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        zxh:text="投诉建议"
+        >
+    </com.fsd.yzcx.view.UCListItem>
+    
+    <com.fsd.yzcx.view.UCListItem
+        android:id="@+id/ucli_Property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        zxh:text="业务报修"
+        >
+    </com.fsd.yzcx.view.UCListItem>
+    
+    <com.fsd.yzcx.view.UCListItem
+        android:id="@+id/ucli_paid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        zxh:text="有偿服务"
+         >
+    </com.fsd.yzcx.view.UCListItem>
+
+</LinearLayout>
