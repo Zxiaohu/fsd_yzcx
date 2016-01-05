@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zxh="http://schemas.android.com/apk/res/com.fsd.yzcx"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/styleTtv_title"
+        android:layout_width="match_parent"
+        android:text="个人信息" />
+
+    <com.fsd.yzcx.ui.view.UCListItem
+        android:id="@+id/ucli_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        zxh:text="昵称" >
+    </com.fsd.yzcx.ui.view.UCListItem>
+
+    <com.fsd.yzcx.ui.view.UCListItem
+        android:id="@+id/ucli_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        zxh:text="积分" >
+    </com.fsd.yzcx.ui.view.UCListItem>
+
+    <com.fsd.yzcx.ui.view.UCListItem
+        android:id="@+id/ucli_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        zxh:text="收货地址" >
+    </com.fsd.yzcx.ui.view.UCListItem>
+
+</LinearLayout>
