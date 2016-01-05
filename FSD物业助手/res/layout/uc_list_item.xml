@@ -26,12 +26,22 @@
         android:text="我的评价"
         android:textSize="@dimen/medium" />
 
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_720minspacing"
+        android:textSize="@dimen/medium"
+        android:textColor="@color/huise"
+        android:visibility="gone"
+        android:text="内容" />
+
     <ImageView
         android:id="@+id/iv_content"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="right|center"
         android:layout_marginRight="@dimen/dimen_720maxspacing"
-        android:src="@drawable/ic_menu_forward" />
+        android:src="@drawable/right_a" />
 
 </LinearLayout>

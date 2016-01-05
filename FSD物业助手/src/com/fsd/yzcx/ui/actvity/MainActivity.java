@@ -1,10 +1,10 @@
-package com.fsd.yzcx.actvity;
+package com.fsd.yzcx.ui.actvity;
 
 import com.fsd.yzcx.R;
-import com.fsd.yzcx.actvity.base.BaseActivity;
-import com.fsd.yzcx.fragment.FuWuFragment;
-import com.fsd.yzcx.fragment.UserCenterFragment;
-import com.fsd.yzcx.view.MyTabItem;
+import com.fsd.yzcx.ui.actvity.base.BaseActivity;
+import com.fsd.yzcx.ui.fragment.FuWuFragment;
+import com.fsd.yzcx.ui.fragment.UserCenterFragment;
+import com.fsd.yzcx.ui.view.MyTabItem;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;

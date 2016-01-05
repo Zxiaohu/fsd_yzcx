@@ -10,28 +10,27 @@
         android:layout_width="match_parent"
         android:text="@string/fuwu_center" />
 
-    <com.fsd.yzcx.view.UCListItem
+    <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_suggestions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         zxh:text="投诉建议"
         >
-    </com.fsd.yzcx.view.UCListItem>
-    
-    <com.fsd.yzcx.view.UCListItem
+    </com.fsd.yzcx.ui.view.UCListItem>
+    <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_Property"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         zxh:text="业务报修"
         >
-    </com.fsd.yzcx.view.UCListItem>
+    </com.fsd.yzcx.ui.view.UCListItem>
     
-    <com.fsd.yzcx.view.UCListItem
+    <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_paid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         zxh:text="有偿服务"
          >
-    </com.fsd.yzcx.view.UCListItem>
+    </com.fsd.yzcx.ui.view.UCListItem>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.fsd.yzcx.pager.base;
+package com.fsd.yzcx.ui.pager.base;
 
 import android.app.Activity;
 import android.view.View;

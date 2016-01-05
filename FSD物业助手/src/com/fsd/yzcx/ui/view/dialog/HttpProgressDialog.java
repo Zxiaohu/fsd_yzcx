@@ -1,4 +1,4 @@
-package com.fsd.yzcx.view.dialog;
+package com.fsd.yzcx.ui.view.dialog;
 
 import com.fsd.yzcx.R;
 

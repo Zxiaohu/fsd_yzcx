@@ -60,38 +60,38 @@
             android:text="@string/service_details" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/border_line"
-            android:gravity="center"
-            android:text="@string/my_points"
-            android:textSize="@dimen/medium" />
+            android:id="@+id/tv_userinfo"
+            style="@style/style_frg_user_item"
+            android:text="@string/my_points" />
     </LinearLayout>
 
-    <com.fsd.yzcx.view.UCListItem
+    <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_evaluate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         zxh:text="我的评价" >
-    </com.fsd.yzcx.view.UCListItem>
+    </com.fsd.yzcx.ui.view.UCListItem>
 
-    <com.fsd.yzcx.view.UCListItem
+    <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_customer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         zxh:text="客服中心" >
-    </com.fsd.yzcx.view.UCListItem>
+  `</com.fsd.yzcx.ui.view.UCListItem>
 
-    <Button 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <Button
         android:id="@+id/btn_exit"
         style="@style/style_btn_base"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720height"
-        android:text="注销登录"
-        android:textSize="@dimen/medium"
-        android:textColor="@color/white"
         android:layout_margin="@dimen/dimen_720maxspacing"
-         />
+        android:text="注销登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/medium" />
 
 </LinearLayout>

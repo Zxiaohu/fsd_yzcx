@@ -1,4 +1,4 @@
-package com.fsd.yzcx.pager.base.imp;
+package com.fsd.yzcx.ui.pager.base.imp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +12,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.fsd.yzcx.R;
-import com.fsd.yzcx.actvity.MainActivity;
 import com.fsd.yzcx.global.YzInfo;
-import com.fsd.yzcx.pager.base.BasePager;
 import com.fsd.yzcx.tools.ForEmptyTool;
 import com.fsd.yzcx.tools.http.HttpTools;
 import com.fsd.yzcx.tools.http.HttpTools.MyHttpListener;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
+import com.fsd.yzcx.ui.actvity.MainActivity;
+import com.fsd.yzcx.ui.pager.base.BasePager;
 import com.google.gson.Gson;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;

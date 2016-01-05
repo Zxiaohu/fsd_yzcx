@@ -4,10 +4,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.fsd.yzcx.pager.base.imp.RoomLoginPager;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
-import com.fsd.yzcx.view.dialog.HttpProgressDialog;
+import com.fsd.yzcx.ui.pager.base.imp.RoomLoginPager;
+import com.fsd.yzcx.ui.view.dialog.HttpProgressDialog;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -29,9 +29,20 @@ public class HttpTools {
 	public static final String URL = "http://192.168.8.110/aspapp/yzcx/";
 
 	public static final String ROOT = "?sys=android";
-	public static final String APP_LOGIN = URL + "applogin.asp" + ROOT;// 登录
+	public static final String APP_LOGIN = URL + "applogin.asp" + ROOT;// 房号登录
 	
-	public static final String LOGIN = URL + "login.asp" + ROOT;// 登录
+	public static final String LOGIN = URL + "login.asp" + ROOT;// 普通登录
+	
+	public static final String SEND_MSG = URL + "sendmsg.asp" + ROOT;// 发送短信
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static final String NOTICE = URL + "notice.asp" + ROOT;// 公告
 	// 获取管理项的URL
 	public static final String PRECINCT = URL + "precinct.asp" + ROOT;

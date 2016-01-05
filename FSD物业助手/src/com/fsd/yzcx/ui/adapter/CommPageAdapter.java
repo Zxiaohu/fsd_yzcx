@@ -1,4 +1,4 @@
-package com.fsd.yzcx.adapter;
+package com.fsd.yzcx.ui.adapter;
 
 import java.util.List;
 import android.support.v4.view.PagerAdapter;

@@ -1,4 +1,4 @@
-package com.fsd.yzcx.view.toolsview;
+package com.fsd.yzcx.ui.view.toolsview;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.tools.ForEmptyTool;
 import com.fsd.yzcx.tools.http.HttpTools;
-import com.fsd.yzcx.view.toolsview.MultiSpinNetAdapter.SpinListener;
+import com.fsd.yzcx.ui.view.toolsview.MultiSpinNetAdapter.SpinListener;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;

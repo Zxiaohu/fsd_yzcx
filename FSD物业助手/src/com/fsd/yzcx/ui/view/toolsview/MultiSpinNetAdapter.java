@@ -1,4 +1,4 @@
-package com.fsd.yzcx.view.toolsview;
+package com.fsd.yzcx.ui.view.toolsview;
 
 import android.app.Activity;
 import android.content.Context;

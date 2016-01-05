@@ -1,22 +1,29 @@
-package com.fsd.yzcx.pager.base.imp;
+package com.fsd.yzcx.ui.pager.base.imp;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.fsd.yzcx.R;
+import com.fsd.yzcx.dao.LoginDao;
+import com.fsd.yzcx.dao.LoginDao.myInterface;
 import com.fsd.yzcx.model.yzinfo.YzInfo;
-import com.fsd.yzcx.pager.base.BasePager;
 import com.fsd.yzcx.tools.http.HttpTools;
 import com.fsd.yzcx.tools.http.HttpTools.MyHttpListener;
 import com.fsd.yzcx.tools.JsonTools;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
-import com.fsd.yzcx.view.dialog.RoomChDialog;
-import com.fsd.yzcx.view.dialog.RoomChDialog.MyDialogItf;
+import com.fsd.yzcx.ui.pager.base.BasePager;
+import com.fsd.yzcx.ui.view.dialog.RoomChDialog;
+import com.fsd.yzcx.ui.view.dialog.RoomChDialog.MyDialogItf;
 import com.google.gson.Gson;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
@@ -37,7 +44,16 @@ public class RoomLoginPager extends BasePager {
 	@ViewInject(R.id.tv_phonenum)
 	private TextView tv_yzphone;
 	@ViewInject(R.id.et_phonenum)
-	private TextView et_phonenum;
+	private EditText et_phonenum;
+
+	//获取验证码的按钮
+	@ViewInject(R.id.btn_check_num)
+	private Button btn_check_num;
+
+	private SharedPreferences preferences;
+
+	private Editor editor;
+
 	public RoomLoginPager(Activity activity) {
 		super(activity);
 	}
@@ -53,6 +69,42 @@ public class RoomLoginPager extends BasePager {
 		LogUtil.i(tag, "第二页数据加载中");
 		//给选择房号做点击事件
 		setChClick();
+		//验证手机号
+		checkNum();
+	}
+
+
+	private void checkNum() {
+		preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+		editor = preferences.edit();
+
+		btn_check_num.setOnClickListener(new OnClickListener() {
+
+
+			public void onClick(View v) {
+				LoginDao loginDao = new LoginDao();//登录操作对象
+				//验证合法性
+				boolean isSame=tv_yzphone.getText().toString().equals(et_phonenum.getText().toString());
+
+				if(!isSame){
+					SystemTools.showToastInfo(mActivity, "请核实您的手机号", 3000, 2);
+				}else{
+					//发送验证码
+					loginDao.getCheckNum(et_phonenum.getText().toString(), new myInterface() {
+						public void checkNum(String yzm, boolean isChecked) {
+							if(isChecked){
+								SystemTools.showToastInfo(mActivity, "验证成功",3000, 1);
+								
+								editor.putString("yzm", yzm);//将验证码存入本地
+								editor.commit();
+							}
+						}
+					});	
+				}
+			}
+		});
+
+
 	}
 
 	/**
@@ -106,7 +158,7 @@ public class RoomLoginPager extends BasePager {
 			public void finish(String response) {
 
 				LogUtil.i(tag,response);
-				
+
 				String newRes=response.substring(1,response.length()-1);
 				if(JsonTools.isJson(newRes)){
 					SystemTools.showToastInfo(mActivity, "查询的数据有误", 3000, 2);
@@ -125,18 +177,18 @@ public class RoomLoginPager extends BasePager {
 	private void setUserIn4(String newRes) {
 		String string1="无结果";
 		String string2="无结果";
-		
+
 		LogUtil.d(tag, newRes);
 		Gson gson = new Gson();				
-		
+
 		YzInfo info = gson.fromJson(newRes, YzInfo.class);
 		string1=info.getMastername();
 		string2 =info.getTelnumber();
-		
+
 		et_phonenum.setText(string2);
 		tv_yzname.setText(string1);
 		tv_yzphone.setText(string2);
 	}
-	
-	
+
+
 }

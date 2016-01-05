@@ -1,13 +1,14 @@
-package com.fsd.yzcx.fragment;
+package com.fsd.yzcx.ui.fragment;
 
 import java.io.File;
 import java.io.IOException;
 
 import com.fsd.yzcx.R;
-import com.fsd.yzcx.actvity.LoginActivity;
-import com.fsd.yzcx.actvity.MainActivity;
-import com.fsd.yzcx.fragment.base.BaseFragment;
 import com.fsd.yzcx.tools.LogUtil;
+import com.fsd.yzcx.ui.actvity.LoginActivity;
+import com.fsd.yzcx.ui.actvity.MainActivity;
+import com.fsd.yzcx.ui.actvity.TempActivity;
+import com.fsd.yzcx.ui.fragment.base.BaseFragment;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -36,8 +37,6 @@ import android.widget.TextView;
  *
  */
 public class UserCenterFragment extends BaseFragment {
-	 /*用来标识请求gallery的activity*/  
-    private static final int PHOTO_PICKED_WITH_DATA = 3021;  
 	
 	@ViewInject(R.id.tv_username)
 	private TextView tv_username;//用户昵称
@@ -51,6 +50,11 @@ public class UserCenterFragment extends BaseFragment {
 	@ViewInject(R.id.btn_exit)//退出的按钮
 	private Button btn_exit;
 
+	
+	@ViewInject(R.id.tv_userinfo)//个人信息的
+	private TextView tv_userinfo;
+
+	
 	private SharedPreferences mPerferences ;
 	
 	
@@ -77,8 +81,22 @@ public class UserCenterFragment extends BaseFragment {
 		userInfoDao();
 		//用户现则头像的相关操作
 		userHeadImgDao();
+		
+		//个人信息设置
+		setUserinfo();
+		
 		//注销的相关设置
 		exitDao();
+	}
+
+	private void setUserinfo() {
+		tv_userinfo.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(mActivity,TempActivity.class);
+				intent.putExtra("flag", 1);
+				mActivity.startActivity(intent);
+			}
+		});
 	}
 
 	/***

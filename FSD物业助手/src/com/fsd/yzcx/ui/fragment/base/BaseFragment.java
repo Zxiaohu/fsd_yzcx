@@ -1,4 +1,4 @@
-package com.fsd.yzcx.fragment.base;
+package com.fsd.yzcx.ui.fragment.base;
 import com.fsd.yzcx.tools.LogUtil;
 
 import android.os.Bundle;

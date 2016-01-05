@@ -1,4 +1,4 @@
-package com.fsd.yzcx.animation;
+package com.fsd.yzcx.ui.animation;
 
 import android.support.v4.view.ViewPager.PageTransformer;
 import android.view.View;

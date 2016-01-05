@@ -1,4 +1,4 @@
-package com.fsd.yzcx.view;
+package com.fsd.yzcx.ui.view;
 
 import com.fsd.yzcx.R;
 import com.lidroid.xutils.ViewUtils;
@@ -29,6 +29,8 @@ public class UCListItem extends LinearLayout {
 	private ImageView iv_title;
 	@ViewInject(R.id.ly_content)
 	private LinearLayout ly_content;
+	@ViewInject(R.id.tv_content)
+	private TextView tv_content;
 	
 	String mString;
 	
@@ -77,6 +79,14 @@ public class UCListItem extends LinearLayout {
 		iv_content.setImageResource(iconID);
 	}
 
+	public void setTvContent(String content){
+		
+		tv_content.setVisibility(View.VISIBLE);
+		
+		tv_content.setText(content);
+		
+	}
+	
 	/**
 	 * 点击监听事件
 	 * @param listener
@@ -84,13 +94,13 @@ public class UCListItem extends LinearLayout {
 	public void setOnClickListener(final MyOnClickListener listener){
 		ly_content.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				listener.onClick();
+				listener.onClick(v);
 			}
 		});
 	}
 
 	public interface MyOnClickListener{
-		void onClick();
+		void onClick(View v);
 	}
 
 }

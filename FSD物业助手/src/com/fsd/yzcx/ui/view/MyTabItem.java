@@ -1,4 +1,4 @@
-package com.fsd.yzcx.view;
+package com.fsd.yzcx.ui.view;
 
 import com.fsd.yzcx.R;
 import com.lidroid.xutils.ViewUtils;

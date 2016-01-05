@@ -4,23 +4,27 @@
     <string name="app_name">物业小助手</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+
     <color name="blue1">#33B5E5</color>
     <color name="blue2">#0068B7</color>
     <color name="blue3">#70E1FF</color>
     <color name="blue4">#cbf3f8</color>
     <color name="huise">#c0c0c0</color>
-    
     <color name="white">#ffffff</color>
     <color name="red">#cc4444</color>
     <color name="green">#669900</color>
     <color name="black">#000</color>
-    
-    
+
     <!-- 个人中心相关的字符 -->
     <string name="my_evaluation">我的评价</string>
     <string name="usercenter">个人中心</string>
     <string name="service_center">客服中心</string>
     <string name="service_details">服务详情</string>
-    <string name="my_points">我的积分</string>
+    <string name="my_points">个人信息</string>
     <string name="fuwu_center">服务中心</string>
+
+    <!-- 短信验证的key -->
+    <string name="sms_key">e320e0b8bca4</string>
+    <string name="sms_secret">126720d484e5ea2742d70683c40e5846</string>
+
 </resources>

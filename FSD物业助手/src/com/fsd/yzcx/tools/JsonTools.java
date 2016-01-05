@@ -23,7 +23,7 @@ public class JsonTools {
 		// 判断最后一个是]或是}
 		char charAt = str.charAt(str.length() - 1);
 
-		if (charAt == ']' || charAt == '}') {
+		if (charAt == ']' | charAt == '}') {
 
 			return true;
 		}

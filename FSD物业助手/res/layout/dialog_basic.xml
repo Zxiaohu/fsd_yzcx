@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720height"
         android:text="选择房号" />
-	<com.fsd.yzcx.view.toolsview.RoomInfoChooser 
+	<com.fsd.yzcx.ui.view.toolsview.RoomInfoChooser 
 	    android:id="@+id/room_chooser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

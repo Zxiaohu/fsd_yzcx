@@ -1,9 +1,9 @@
-package com.fsd.yzcx.view.dialog;
+package com.fsd.yzcx.ui.view.dialog;
 
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.tools.SystemTools;
-import com.fsd.yzcx.view.toolsview.RoomInfoChooser;
-import com.fsd.yzcx.view.toolsview.RoomInfoChooser.AllSelectedListener;
+import com.fsd.yzcx.ui.view.toolsview.RoomInfoChooser;
+import com.fsd.yzcx.ui.view.toolsview.RoomInfoChooser.AllSelectedListener;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

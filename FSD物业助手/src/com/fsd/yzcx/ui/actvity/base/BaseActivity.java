@@ -1,4 +1,4 @@
-package com.fsd.yzcx.actvity.base;
+package com.fsd.yzcx.ui.actvity.base;
 
 import com.fsd.yzcx.tools.ActivityCollector;
 import com.fsd.yzcx.tools.LogUtil;
