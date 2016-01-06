@@ -123,7 +123,7 @@ public class HttpTools {
 
 			public void onFailure(HttpException arg0, String arg1) {
 				SystemTools.showToastInfo(MyApplication.getContext(), tag+"请求失败", 3000, 2);
-				LogUtil.e("test", "请求失败");
+				
 			}
 
 			public void onSuccess(ResponseInfo<String> arg0) {

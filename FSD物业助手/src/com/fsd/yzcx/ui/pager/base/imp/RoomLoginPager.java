@@ -110,7 +110,7 @@ public class RoomLoginPager extends BasePager {
 	}
 
 	/**
-	 * 点击事件
+	 * 点击选择事件
 	 */
 	public void setChClick(){
 		tv_chooseroom.setOnClickListener(new OnClickListener() {

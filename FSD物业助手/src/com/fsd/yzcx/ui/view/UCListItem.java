@@ -86,7 +86,9 @@ public class UCListItem extends LinearLayout {
 		tv_content.setText(content);
 		
 	}
-	
+	public String  getTvContent(){	
+		return tv_content.getText().toString();
+	}
 	/**
 	 * 点击监听事件
 	 * @param listener
