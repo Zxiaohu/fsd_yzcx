@@ -20,7 +20,7 @@ import android.widget.TextView;
  */
 public class UCListItem extends LinearLayout {
 
-	private View mRootView;
+	private View mRootView;//根布局
 	@ViewInject(R.id.tv_title)
 	private TextView tv_title;
 	@ViewInject(R.id.iv_content)
@@ -32,7 +32,7 @@ public class UCListItem extends LinearLayout {
 	@ViewInject(R.id.tv_content)
 	private TextView tv_content;
 	
-	String mString;
+	String mString;//条目描述信息
 	
 	public UCListItem(Context context, AttributeSet attrs) {
 		super(context, attrs);

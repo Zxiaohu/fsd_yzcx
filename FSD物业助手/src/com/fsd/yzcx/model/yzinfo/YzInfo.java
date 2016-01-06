@@ -12,7 +12,7 @@ public class YzInfo {
 	 */
 	private String houseid;
 	private	String mastername;
-	private  String telnumber;
+	private String telnumber;
 	private String housename;
 	
 	public String getHouseid() {

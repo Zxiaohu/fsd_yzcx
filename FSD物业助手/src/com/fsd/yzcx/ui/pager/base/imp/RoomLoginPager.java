@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.fsd.yzcx.R;
-import com.fsd.yzcx.dao.LoginDao;
-import com.fsd.yzcx.dao.LoginDao.myInterface;
+import com.fsd.yzcx.dao.login.LoginDao;
+import com.fsd.yzcx.dao.login.LoginDao.myInterfaceCheckNum;
 import com.fsd.yzcx.model.yzinfo.YzInfo;
 import com.fsd.yzcx.tools.http.HttpTools;
 import com.fsd.yzcx.tools.http.HttpTools.MyHttpListener;
@@ -90,7 +90,8 @@ public class RoomLoginPager extends BasePager {
 					SystemTools.showToastInfo(mActivity, "请核实您的手机号", 3000, 2);
 				}else{
 					//发送验证码
-					loginDao.getCheckNum(et_phonenum.getText().toString(), new myInterface() {
+					loginDao.getCheckNum(et_phonenum.getText().toString(), new myInterfaceCheckNum() {
+						
 						public void checkNum(String yzm, boolean isChecked) {
 							if(isChecked){
 								SystemTools.showToastInfo(mActivity, "验证成功",3000, 1);
@@ -99,6 +100,7 @@ public class RoomLoginPager extends BasePager {
 								editor.commit();
 							}
 						}
+
 					});	
 				}
 			}
@@ -154,7 +156,7 @@ public class RoomLoginPager extends BasePager {
 			LogUtil.i(tag,string);
 		}
 
-		HttpTools.send(HttpTools.ROOM_INFO, params, mActivity,new MyHttpListener() {
+		HttpTools.send(HttpTools.ROOM_INFO, params,new MyHttpListener() {
 			public void finish(String response) {
 
 				LogUtil.i(tag,response);

@@ -1,4 +1,7 @@
 package com.fsd.yzcx.ui.pager.base.imp;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +13,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.fsd.yzcx.R;
-import com.fsd.yzcx.global.YzInfo;
+import com.fsd.yzcx.dao.login.LoginDao;
+import com.fsd.yzcx.dao.login.LoginDao.myInterfaceCheckNormalLogin;
+import com.fsd.yzcx.dao.login.LoginUserInfo;
 import com.fsd.yzcx.tools.ForEmptyTool;
-import com.fsd.yzcx.tools.http.HttpTools;
-import com.fsd.yzcx.tools.http.HttpTools.MyHttpListener;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.actvity.MainActivity;
@@ -84,57 +86,34 @@ public class NormalLoginPager extends BasePager {
 	 * @param uid
 	 * @param upwd
 	 */
-	private void send4serverCh(String uid, String upwd) {
-		RequestParams params = new RequestParams("utf-8");
-		params.addBodyParameter("uname",uid);
-		params.addBodyParameter("upwd",upwd);
-		LogUtil.i("NormalLoginPager", HttpTools.LOGIN);
-
-		HttpTools.send(HttpTools.LOGIN,params, mActivity, new MyHttpListener() {			
-			public void finish(String response) {
-				//去掉中括号将结果解析成对象
-				String newRes=response.substring(1, response.length()-1);
-				LogUtil.d(tag,newRes);
-
-				Gson gson= new Gson();
-
-				//普通登录返回的业主信息
-				YzInfo yzInfo= gson.fromJson(newRes,YzInfo.class);
-
-				LogUtil.w(tag, yzInfo.toString());
-
-				if(yzInfo.flag==1){
-					SystemTools.showToastInfo(mActivity, "登录成功", 3000, 1);
-
-					//将用户的信息写进本地文件
-					writerUserInfo2PF(yzInfo.username,yzInfo.nickname,yzInfo.telephone);
-
-					mActivity.startActivity(new Intent(mActivity,MainActivity.class));
-					
-					mActivity.finish();
-					
-				}else{
-					SystemTools.showToastInfo(mActivity, yzInfo.info, 3000, 2);
-				}		
+	private void send4serverCh(String uname, String upwd) {
+		
+		LoginDao loginDao = new LoginDao();//验证密码和用户
+		loginDao.checkNormalLogin(uname, upwd, new myInterfaceCheckNormalLogin() {
+			public void checkNormalLogin(LoginUserInfo userinfo) {
+				if(userinfo.flag==0){
+						SystemTools.showToastInfo(mActivity,userinfo.info, 3000, 2);
+					}else{					
+						writerUserInfo2PF(userinfo.uname,userinfo.nickname);//写入文件中
+						SystemTools.showToastInfo(mActivity,userinfo.info, 3000, 1);
+						mActivity.startActivity(new Intent(mActivity,MainActivity.class));
+						mActivity.finish();
+					}
 			}
-
-
-		},"登录服务器");
+		});	
 	}
 
 
-	private void writerUserInfo2PF(String username, String nickname,String telephone) {
+	private void writerUserInfo2PF(String uname, String nickname) {
 
 		preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
 				Editor edit = preferences.edit();
 				edit.clear();
 				
-				edit.putString("userfools", nickname);
-				edit.putString("username", telephone);
-				edit.putString("telephone", telephone);
+				edit.putString("nickname", nickname);
+				edit.putString("uname", uname);
 				
-				LogUtil.e(tag, username+nickname);
-
+				LogUtil.e(tag, uname+nickname);
 				edit.commit();
 	}
 	/**

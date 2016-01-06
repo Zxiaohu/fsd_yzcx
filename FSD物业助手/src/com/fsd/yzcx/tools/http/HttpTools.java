@@ -4,8 +4,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.fsd.yzcx.tools.JsonTools;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
+import com.fsd.yzcx.ui.actvity.base.MyApplication;
 import com.fsd.yzcx.ui.pager.base.imp.RoomLoginPager;
 import com.fsd.yzcx.ui.view.dialog.HttpProgressDialog;
 import com.lidroid.xutils.HttpUtils;
@@ -111,7 +113,7 @@ public class HttpTools {
 	 * @param listener
 	 *            结果监听
 	 */
-	public static void send(String url, RequestParams params,final Context context,
+	public static void send(String url, RequestParams params,
 			final MyHttpListener listener,final String tag
 			) {
 
@@ -120,15 +122,20 @@ public class HttpTools {
 		httpUtils.send(HttpMethod.POST, url,params, new RequestCallBack<String>() {
 
 			public void onFailure(HttpException arg0, String arg1) {
-				SystemTools.showToastInfo(context, tag+"请求失败", 3000, 2);
-				
+				SystemTools.showToastInfo(MyApplication.getContext(), tag+"请求失败", 3000, 2);
+				LogUtil.e("test", "请求失败");
 			}
 
 			public void onSuccess(ResponseInfo<String> arg0) {
 				//SystemTools.showToastInfo(context, tag+"请求成功", 3000, 2);
 				String response=arg0.result.toString();
 				LogUtil.i(RoomLoginPager.class.getSimpleName(),response);
-				listener.finish(response);
+				if(JsonTools.isJson(response)){
+					listener.finish(response);
+				}else{
+					SystemTools.showToastInfo(MyApplication.getContext(), tag+"返回的数据格式有误", 3000, 2);
+					LogUtil.e(RoomLoginPager.class.getSimpleName(),tag+"返回的数据格式有误");
+				}
 				
 			}
 

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.fsd.yzcx.R;
+import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.ui.actvity.base.BaseActivity;
 import com.fsd.yzcx.ui.fragment.PaidFragment;
 import com.fsd.yzcx.ui.fragment.PropertyFragment;
@@ -41,7 +42,7 @@ public class TempActivity extends BaseActivity {
 	
 		fManager = getSupportFragmentManager();
 		transaction =fManager.beginTransaction();
-		
+		Bundle bundle= new Bundle();
 		switch (flag) {
 		case 0:
 			//结束当前的activity什么都不做
@@ -49,8 +50,15 @@ public class TempActivity extends BaseActivity {
 			break;
 		case 1:
 			//加载个人信息的fragment
+			String userifno=intent.getStringExtra("userinfo");
+			
+			LogUtil.i(this.getClass().getSimpleName(), userifno);
+			bundle.putString("userinfo", userifno);
 			baseFragment = new UserInfoFragment();
 			
+			if(userifno!=null){
+				baseFragment.setArguments(bundle);
+			}
 			break;
 		case 2:
 			baseFragment = new SuggestionsFragment();

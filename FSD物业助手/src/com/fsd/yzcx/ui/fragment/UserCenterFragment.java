@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import com.fsd.yzcx.R;
+import com.fsd.yzcx.dao.user.UserDao;
+import com.fsd.yzcx.dao.user.UserDao.UserDaoListener;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.ui.actvity.LoginActivity;
 import com.fsd.yzcx.ui.actvity.MainActivity;
@@ -80,7 +82,7 @@ public class UserCenterFragment extends BaseFragment {
 		 */
 		userInfoDao();
 		//用户现则头像的相关操作
-		userHeadImgDao();
+		//userHeadImgDao();
 		
 		//个人信息设置
 		setUserinfo();
@@ -89,12 +91,27 @@ public class UserCenterFragment extends BaseFragment {
 		exitDao();
 	}
 
+	/**
+	 * 个人信息设置
+	 */
 	private void setUserinfo() {
 		tv_userinfo.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(mActivity,TempActivity.class);
-				intent.putExtra("flag", 1);
-				mActivity.startActivity(intent);
+				UserDao userDao = new UserDao();
+				String telephone=mPerferences.getString("uname", "");
+				
+				//从服务器获取用户的信息
+				userDao.fetchUserInfo(telephone, new UserDaoListener() {
+				public void fetchUserInfo(String jsonUserInfo) {	
+					
+					Intent intent = new Intent(mActivity,TempActivity.class);
+					intent.putExtra("flag", 1);
+					intent.putExtra("userinfo",jsonUserInfo);
+					mActivity.startActivity(intent);
+					
+					
+					}
+				});	
 			}
 		});
 	}
@@ -104,55 +121,20 @@ public class UserCenterFragment extends BaseFragment {
 	 */
 	private void userHeadImgDao() {
 		/**
-		 * 分析:用户点击头像的时候：给用户提供选择相册和拍照的功能
+		 * 分析:用户点击头像的时候：
 		 */
-		//弹出选择对话框
-		showSlectPhoto();
 		
 	}
 
 
-	/**
-	 * 弹出选择对话框
-	 */
-	private void showSlectPhoto() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-		builder.setItems(new String []{"\t拍照", "\t从相册选择"},new AlertDialog.OnClickListener() {
-			
-			public void onClick(DialogInterface dialog, int which) {
-				switch (which) {
-				case 0:		
-					break;
-				case 1:	//从相册选择的操作
-					//创建file对象,储存选择的照片
-					File userImage = new File(Environment.getExternalStorageDirectory(),"user_image.jpg");
-					try {
-						if(userImage.exists()){//如果存在就删除
-							userImage.delete();
-						}
-					
-						
-						
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					
-					
-					
-					break;
-				default:
-					break;
-				}	
-			}
-		}).create();
-	}
-  
+	
 	/**
 	 * 注销账号的操作
 	 */
 	private void exitDao() {
 		btn_exit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {	
+				//判处对话框询问是否真的注销
 				mPerferences.edit().clear().commit();
 				((MainActivity)mActivity).tabHost.setCurrentTab(0);//刷新一下
 			}
@@ -186,14 +168,22 @@ public class UserCenterFragment extends BaseFragment {
 		boolean isLogin=false;
 		
 		
-		String username=mPerferences.getString("username", null);
-		String userfools=mPerferences.getString("userfools",null);
-
-		LogUtil.w(this.getClass().getSimpleName(), username+userfools);
+		String uname=mPerferences.getString("uname", null);
+		String nickname=mPerferences.getString("nickname",null);
 		
-		if(username!=null&&userfools!=null){
-			tv_username.setText(username);
-			tv_fools.setText(userfools);
+		LogUtil.w(this.getClass().getSimpleName(), uname+"------"+nickname);
+		
+		if(uname!=null&&nickname!=null){
+			
+			tv_username.setText(nickname);
+			tv_fools.setText("手机号:"+uname);
+			if(nickname.equals("")){
+				tv_username.setText("请设置昵称");
+			}
+			if(uname.equals("")){
+				tv_fools.setText("请完善个人信息");
+			}
+			
 			isLogin=true;
 		}else{
 			tv_username.setText("请点击登录");
