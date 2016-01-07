@@ -1,4 +1,4 @@
-package com.fsd.yzcx.ui.fragment;
+package com.fsd.yzcx.ui.fragment.user;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,9 +24,10 @@ public class UserInfoFragment extends BaseFragment {
 	private UCListItem uclt_nickname;//昵称
 	private UCListItem uclt_score;//积分
 	private UCListItem uclt_address;//地址
+	private UCListItem uclt_update_pwd;//修改密码
+	
 	private UserInfo userInfo;//用户信息
 	//private String nickname;//昵称
-
 	private FragmentManager supportFragmentManager;
 	private SharedPreferences mPerferences ;
 
@@ -61,10 +62,11 @@ public class UserInfoFragment extends BaseFragment {
 		uclt_nickname=(UCListItem) mRootView.findViewById(R.id.ucli_nickname);
 		uclt_score=(UCListItem) mRootView.findViewById(R.id.ucli_score);
 		uclt_address=(UCListItem) mRootView.findViewById(R.id.ucli_address);
+		uclt_update_pwd=(UCListItem) mRootView.findViewById(R.id.ucli_update_pwd);
 
 		//判断用户的值并设置
 		String nickname="请设置信息";
-		String score="没有积分";
+		//String score="没有积分";
 		String address="请设置信息";
 
 
@@ -72,10 +74,7 @@ public class UserInfoFragment extends BaseFragment {
 			address=userInfo.address;
 		}
 
-		if(!(userInfo.score==0)){//设置积分信息
-			score=userInfo.score+"";
-		}
-
+		
 		if(!userInfo.nickname.equals("")){
 			nickname=userInfo.nickname;
 		}
@@ -85,7 +84,7 @@ public class UserInfoFragment extends BaseFragment {
 			uclt_photo.setTvContent("请设置头像");
 		}
 		uclt_nickname.setTvContent(nickname);
-		uclt_score.setTvContent(score);
+		uclt_score.setTvContent(userInfo.score+"分");
 		uclt_address.setTvContent(address);
 
 	}
@@ -102,12 +101,14 @@ public class UserInfoFragment extends BaseFragment {
 
 		final UserInfoUpdateDialog dialog = new UserInfoUpdateDialog();
 
+		//设置修改地址的方法
 		setUcLiEvent(uclt_address, uname,"address", dialog);
-
+		
+		//设置用户昵称的方法
 		setUcLiEvent(uclt_nickname, uname,"nickname", dialog);
-		//		setUcLiEvent(uclt_address, uname,"address", dialog);
-		//		setUcLiEvent(uclt_address, uname,"address", dialog);
-
+		
+		//设置修改密码的方法
+		
 	}
 
 	/**
@@ -130,8 +131,8 @@ public class UserInfoFragment extends BaseFragment {
 							ucListItem.setTvContent(content);
 							if(ucListItem.equals(uclt_nickname)){
 								SystemTools.showToastInfo(mActivity, content, 3000, 1);
-								mPerferences.edit().putString("nickname",content);
-								
+								//修改原文件中的值
+								mPerferences.edit().putString("nickname",content).commit();	
 							}
 						}
 					});

@@ -1,18 +1,9 @@
 package com.fsd.yzcx.tools.http;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-
-import com.fsd.yzcx.R;
 import com.fsd.yzcx.tools.JsonTools;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.actvity.base.MyApplication;
 import com.fsd.yzcx.ui.pager.base.imp.RoomLoginPager;
-import com.fsd.yzcx.ui.view.dialog.HttpProgressDialog;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -119,23 +110,20 @@ public class HttpTools {
 	public static void send(String url, RequestParams params,
 			final MyHttpListener listener,final String tag
 			) {
-
+		
 		HttpUtils httpUtils = new HttpUtils(6 * 3000);
-		final ProgressDialog progressDialog = new ProgressDialog(MyApplication.getContext());
-		progressDialog.setView(View.inflate(MyApplication.getContext(), R.layout.http_progress, null));
 		
 		//封装框架的请求接口
 		httpUtils.send(HttpMethod.POST, url,params, new RequestCallBack<String>() {
 			
 			public void onFailure(HttpException arg0, String arg1) {
-				progressDialog.dismiss();//隐藏加载栏
+			//
 				SystemTools.showToastInfo(MyApplication.getContext(), tag+"请求失败", 3000, 2);
 				
 			}
 
 			public void onSuccess(ResponseInfo<String> arg0) {
 				
-				progressDialog.dismiss();//隐藏加载栏
 				//SystemTools.showToastInfo(context, tag+"请求成功", 3000, 2);
 				String response=arg0.result.toString();
 				LogUtil.i(RoomLoginPager.class.getSimpleName(),response);
@@ -150,21 +138,18 @@ public class HttpTools {
 
 			public void onLoading(long total, long current, boolean isUploading) {
 				super.onLoading(total, current, isUploading);
-			
-				progressDialog.show();//显示加载栏
+				
+				listener.onloading(total, current, isUploading);
 				
 			}
 
 			public void onStart() {
 				super.onStart();
-				progressDialog.show();//显示加载栏
+			
 
 			}
 		});
 
 	}
-
-	public interface MyHttpListener {
-		void finish(String response);
-	}
+	
 }

@@ -17,7 +17,7 @@ import com.fsd.yzcx.dao.login.LoginDao;
 import com.fsd.yzcx.dao.login.LoginDao.myInterfaceCheckNum;
 import com.fsd.yzcx.model.yzinfo.YzInfo;
 import com.fsd.yzcx.tools.http.HttpTools;
-import com.fsd.yzcx.tools.http.HttpTools.MyHttpListener;
+import com.fsd.yzcx.tools.http.MyHttpListener;
 import com.fsd.yzcx.tools.JsonTools;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
@@ -158,9 +158,7 @@ public class RoomLoginPager extends BasePager {
 
 		HttpTools.send(HttpTools.ROOM_INFO, params,new MyHttpListener() {
 			public void finish(String response) {
-
 				LogUtil.i(tag,response);
-
 				String newRes=response.substring(1,response.length()-1);
 				if(JsonTools.isJson(newRes)){
 					SystemTools.showToastInfo(mActivity, "查询的数据有误", 3000, 2);
@@ -169,9 +167,9 @@ public class RoomLoginPager extends BasePager {
 					setUserIn4(newRes);
 				}
 			}
-
 		},"获取业主信息");
 	}
+	
 	/***
 	 * 设置用户信息
 	 * @param response

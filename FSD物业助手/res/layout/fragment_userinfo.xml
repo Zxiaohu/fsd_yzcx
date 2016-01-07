@@ -3,6 +3,7 @@
     xmlns:zxh="http://schemas.android.com/apk/res/com.fsd.yzcx"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e6e6e6"
     android:orientation="vertical" >
 
     <TextView
@@ -35,6 +36,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         zxh:text="收货地址" >
+    </com.fsd.yzcx.ui.view.UCListItem>
+    
+    <com.fsd.yzcx.ui.view.UCListItem
+        android:id="@+id/ucli_update_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        zxh:text="修改密码" >
     </com.fsd.yzcx.ui.view.UCListItem>
 
 </LinearLayout>

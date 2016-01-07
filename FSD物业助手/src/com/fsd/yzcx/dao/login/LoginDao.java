@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.http.HttpTools;
-import com.fsd.yzcx.tools.http.HttpTools.MyHttpListener;
+import com.fsd.yzcx.tools.http.MyHttpListener;
 import com.fsd.yzcx.ui.actvity.base.MyApplication;
 import com.google.gson.Gson;
 import com.lidroid.xutils.http.RequestParams;

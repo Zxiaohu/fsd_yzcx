@@ -1,4 +1,4 @@
-package com.fsd.yzcx.ui.fragment;
+package com.fsd.yzcx.ui.fragment.user;
 
 import java.io.File;
 import java.io.IOException;

@@ -10,11 +10,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.fsd.yzcx.tools.http.HttpTools;
-import com.fsd.yzcx.tools.http.HttpTools.MyHttpListener;
+import com.fsd.yzcx.tools.http.MyHttpListener;
 import com.fsd.yzcx.tools.JsonTools;
-import com.fsd.yzcx.tools.LogUtil;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;

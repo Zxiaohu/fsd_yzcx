@@ -2,8 +2,8 @@ package com.fsd.yzcx.ui.actvity;
 
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.ui.actvity.base.BaseActivity;
-import com.fsd.yzcx.ui.fragment.FuWuFragment;
-import com.fsd.yzcx.ui.fragment.UserCenterFragment;
+import com.fsd.yzcx.ui.fragment.fuwu.FuWuFragment;
+import com.fsd.yzcx.ui.fragment.user.UserCenterFragment;
 import com.fsd.yzcx.ui.view.MyTabItem;
 
 import android.os.Bundle;

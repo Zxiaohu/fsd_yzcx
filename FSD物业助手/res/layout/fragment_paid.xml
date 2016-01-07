@@ -9,4 +9,36 @@
         android:text="有偿服务"
         style="@style/styleTtv_title"
         />
+
+     <TextView
+         android:id="@+id/textView1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Medium Text"
+         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+     <TextView
+         android:id="@+id/textView2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Small Text"
+         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+     <ToggleButton
+         android:id="@+id/toggleButton1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="ToggleButton" />
+
+     <CheckBox
+         android:id="@+id/checkBox1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="CheckBox" />
+
+     <Spinner
+         android:id="@+id/spinner1"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" />
+
 </LinearLayout>

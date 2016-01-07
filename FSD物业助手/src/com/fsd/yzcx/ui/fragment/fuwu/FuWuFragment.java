@@ -1,4 +1,4 @@
-package com.fsd.yzcx.ui.fragment;
+package com.fsd.yzcx.ui.fragment.fuwu;
 
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.tools.SystemTools;
@@ -70,6 +70,7 @@ public class FuWuFragment extends BaseFragment {
 				mActivity.startActivity(intent);
 			}
 		});
+		
 		ucli_Property.setOnClickListener(new MyOnClickListener() {
 			public void onClick(View v) {
 				SystemTools.showToastInfo(mActivity, "物业报修", 3000, 1);

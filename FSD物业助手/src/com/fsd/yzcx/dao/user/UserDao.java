@@ -4,7 +4,7 @@ import java.net.InterfaceAddress;
 
 import com.fsd.yzcx.tools.JsonTools;
 import com.fsd.yzcx.tools.http.HttpTools;
-import com.fsd.yzcx.tools.http.HttpTools.MyHttpListener;
+import com.fsd.yzcx.tools.http.MyHttpListener;
 import com.fsd.yzcx.ui.actvity.base.MyApplication;
 import com.lidroid.xutils.http.RequestParams;
 
@@ -56,7 +56,7 @@ public class UserDao {
 		if(tag.equals("nickname")){
 			params.addBodyParameter("nickname",content);
 		}
-		
+	
 		HttpTools.send(UPDATE_USERINFO, params, new MyHttpListener() {
 			public void finish(String response) {	
 				updateUserListener.updateUserInfo(response.substring(1,response.length()-1));

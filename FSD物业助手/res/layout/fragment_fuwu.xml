@@ -21,7 +21,7 @@
         android:id="@+id/ucli_Property"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        zxh:text="业务报修"
+        zxh:text="物业报修"
         >
     </com.fsd.yzcx.ui.view.UCListItem>
     
