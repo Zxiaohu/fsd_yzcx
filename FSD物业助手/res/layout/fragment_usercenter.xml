@@ -77,7 +77,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         zxh:text="客服中心" >
-  `</com.fsd.yzcx.ui.view.UCListItem>
+  `
+    </com.fsd.yzcx.ui.view.UCListItem>
 
     <View
         android:layout_width="match_parent"
@@ -89,9 +90,6 @@
         style="@style/style_btn_base"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720height"
-        android:layout_margin="@dimen/dimen_720maxspacing"
-        android:text="注销登录"
-        android:textColor="@color/white"
-        android:textSize="@dimen/medium" />
+        android:text="注销登录" />
 
 </LinearLayout>

@@ -60,7 +60,7 @@ public class UserInfoUpdateDialog extends DialogFragment {
 				
 								
 				//LogUtil.d("test",content1+"-"+content2);
-				UserDao userDao = new UserDao();
+				UserDao userDao = new UserDao(getActivity());
 				
 				//更新用户信息
 				userDao.updtaeUserInfo(uname,tag,content,new UpdateUserListener() {

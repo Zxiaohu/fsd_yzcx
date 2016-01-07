@@ -1,6 +1,9 @@
 package com.fsd.yzcx.ui.fragment.fuwu;
 
 import com.fsd.yzcx.R;
+import com.fsd.yzcx.dao.fuwu.FuwuDao;
+import com.fsd.yzcx.dao.fuwu.FuwuDao.MyFWdaoListener;
+import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.actvity.MainActivity;
 import com.fsd.yzcx.ui.actvity.TempActivity;
@@ -61,39 +64,39 @@ public class FuWuFragment extends BaseFragment {
 	public void initData(Bundle bundle) {
 
 		//分别给操作项添加点击事件
-		ucli_suggestions.setOnClickListener(new MyOnClickListener() {
-			public void onClick(View v) {
-				SystemTools.showToastInfo(mActivity, "投诉", 3000, 1);
-				//跳转到投诉fragment
-				Intent intent = new Intent(mActivity,TempActivity.class);
-				intent.putExtra("flag", 2);
-				mActivity.startActivity(intent);
-			}
-		});
+		setSubItemEvent(ucli_suggestions,2);
 		
-		ucli_Property.setOnClickListener(new MyOnClickListener() {
+		setSubItemEvent(ucli_Property,3);
+		
+		setSubItemEvent(ucli_paid,4);
+		
+	}
+
+	
+	
+	private void setSubItemEvent(UCListItem ucListItem, final int flag) {
+		ucListItem.setOnClickListener(new MyOnClickListener() {
 			public void onClick(View v) {
-				SystemTools.showToastInfo(mActivity, "物业报修", 3000, 1);
-				//跳转到报修fragment
 				//跳转到投诉fragment
-				Intent intent = new Intent(mActivity,TempActivity.class);
-				intent.putExtra("flag", 3);
-				mActivity.startActivity(intent);
+				
+				//请求网络获取子服务项信息
+				FuwuDao fuwuDao = new FuwuDao(mActivity);
+				
+				//获取数据的接口
+				fuwuDao.fetchSubService(mActivity.getResources().getStringArray(R.array.pid)[flag-2],
+						
+						"subservice", new MyFWdaoListener() {
+							public void fetchSubService(String response) {
+								LogUtil.i("test", response);
+								Intent intent = new Intent(mActivity,TempActivity.class);
+								intent.putExtra("flag", flag);
+								intent.putExtra("config_info", response);//返回的2级服务项的数据
+								mActivity.startActivity(intent);
+							}
+						});
 				
 			}
 		});
-		ucli_paid.setOnClickListener(new MyOnClickListener() {
-			public void onClick(View v) {
-				SystemTools.showToastInfo(mActivity, "有偿服务", 3000, 1);
-				//跳转到有偿服务fragment
-				//跳转到投诉fragment
-				Intent intent = new Intent(mActivity,TempActivity.class);
-				intent.putExtra("flag", 4);
-				mActivity.startActivity(intent);
-				
-			}
-		});
-		
 	}
 	
 }

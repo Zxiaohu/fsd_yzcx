@@ -44,6 +44,7 @@ public class TempActivity extends BaseActivity {
 		fManager = getSupportFragmentManager();
 		transaction =fManager.beginTransaction();
 		Bundle bundle= new Bundle();
+		
 		switch (flag) {
 		case 0:
 			//结束当前的activity什么都不做
@@ -52,8 +53,6 @@ public class TempActivity extends BaseActivity {
 		case 1:
 			//加载个人信息的fragment
 			String userifno=intent.getStringExtra("userinfo");
-			
-			LogUtil.i(this.getClass().getSimpleName(), userifno);
 			bundle.putString("userinfo", userifno);
 			baseFragment = new UserInfoFragment();
 			
@@ -62,34 +61,53 @@ public class TempActivity extends BaseActivity {
 			}
 			break;
 		case 2:
-			baseFragment = new SuggestionsFragment();//投诉建议
-			
+			setFragmentAndData(bundle,new SuggestionsFragment());
 			break;
 			
 		case 3:
-			baseFragment = new PropertyFragment();//物业报修
-			
+			setFragmentAndData(bundle,new PropertyFragment());
 			break;
 		case 4:
-			
-			baseFragment = new PaidFragment();//有偿服务
-			
+			setFragmentAndData(bundle,new PaidFragment());
 			break;
 		default:
 			break;
 		}
+		
 		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
 		transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 		
 		transaction.add(R.id.fl_tempAty_content, baseFragment);
 		transaction.commit();
 				
 	}
+
+
+	/**
+	 * 
+	 * @param bundle
+	 * @param Fragment
+	 */
+	private void setFragmentAndData(Bundle bundle,BaseFragment Fragment) {
+		String config_info=intent.getStringExtra("config_info");
+		bundle.putString("config_info", config_info);
+		baseFragment = Fragment;
+		if(config_info!=null){
+			baseFragment.setArguments(bundle);
+		}
+	}
 	
-	@Override
+	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+		if(keyCode == KeyEvent.KEYCODE_BACK ){
+			this.finish();
+		}
+		
+		
 		this.finish();
+		
+		
 		return super.onKeyDown(keyCode, event);
 	}
 }

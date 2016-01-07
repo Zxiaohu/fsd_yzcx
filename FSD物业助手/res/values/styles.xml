@@ -56,9 +56,7 @@
         <item name="android:textColor">@color/blue1</item>
     </style>
 
-    <style name="style_btn_base" parent="style_input_base">
-        <item name="android:background">@drawable/seletor_login_btn</item>
-    </style>
+    
 
     <style name="styleTtv_title" parent="android:Widget.Holo.Light.TextView">
         <item name="android:background">@color/blue2</item>
@@ -78,4 +76,24 @@
         <item name="android:textSize">@dimen/medium</item>
     </style>
 
+    <style name="style_fuwu_tv" parent="android:Widget.Holo.Light.TextView">
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:layout_marginTop">@dimen/dimen_720maxspacing</item>
+        <item name="android:paddingBottom">@dimen/dimen_720minspacing</item>
+        <item name="android:paddingLeft">@dimen/dimen_720largespacing</item>
+        <item name="android:paddingTop">@dimen/dimen_720minspacing</item>
+        <item name="android:textSize">@dimen/small</item>
+    </style>
+    
+    <style name="style_fuwu_spinner">
+        <item name="android:background">@color/blue4</item>
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+    <style name="style_btn_base">
+        <item name="android:layout_margin">@dimen/dimen_720maxspacing</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/medium</item>
+        <item name="android:background">@drawable/seletor_danger_btn</item>
+    </style>
 </resources>

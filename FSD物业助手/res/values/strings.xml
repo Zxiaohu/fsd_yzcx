@@ -10,6 +10,7 @@
     <color name="blue3">#70E1FF</color>
     <color name="blue4">#cbf3f8</color>
     <color name="huise">#c0c0c0</color>
+    <color name="huise1">#e6e6e6</color>
     <color name="white">#ffffff</color>
     <color name="red">#cc4444</color>
     <color name="green">#669900</color>
@@ -27,4 +28,11 @@
     <string name="sms_key">e320e0b8bca4</string>
     <string name="sms_secret">126720d484e5ea2742d70683c40e5846</string>
 
+    <!-- 服务项-->
+    <string-array name="pid">
+        <item>service03</item>
+        <item>service01</item>
+        <item>service02</item>
+    </string-array>
+    
 </resources>

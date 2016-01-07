@@ -1,7 +1,7 @@
 package com.fsd.yzcx.dao.user;
+import android.content.Context;
 
-import java.net.InterfaceAddress;
-
+import com.fsd.yzcx.dao.DialogHelper;
 import com.fsd.yzcx.tools.JsonTools;
 import com.fsd.yzcx.tools.http.HttpTools;
 import com.fsd.yzcx.tools.http.MyHttpListener;
@@ -15,7 +15,12 @@ import com.lidroid.xutils.http.RequestParams;
  */
 public class UserDao {
 
-
+	private Context context;
+	public UserDao(Context context) {
+	
+		this.context=context;
+		
+	}
 	//请求用户信息的地址
 	final String  USER_INFO=HttpTools.URL+"userinfo.asp"+HttpTools.ROOT;
 	final String  UPDATE_USERINFO=HttpTools.URL+"updateuserinfo.asp"+HttpTools.ROOT;
@@ -60,6 +65,12 @@ public class UserDao {
 		HttpTools.send(UPDATE_USERINFO, params, new MyHttpListener() {
 			public void finish(String response) {	
 				updateUserListener.updateUserInfo(response.substring(1,response.length()-1));
+			}
+			@Override
+			public void onloading(long total, long current, boolean isUploading) {
+				super.onloading(total, current, isUploading);
+			
+			DialogHelper.showDialog(context, isUploading);
 			}
 		}, "修改信息");
 		

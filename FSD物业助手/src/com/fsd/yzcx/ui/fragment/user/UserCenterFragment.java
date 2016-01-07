@@ -106,7 +106,7 @@ public class UserCenterFragment extends BaseFragment {
 
 		tv_userinfo.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				UserDao userDao = new UserDao();
+				UserDao userDao = new UserDao(mActivity);
 				if(!uname.equals("")){
 					//从服务器获取用户的信息
 					userDao.fetchUserInfo(uname, new UserDaoListener() {
