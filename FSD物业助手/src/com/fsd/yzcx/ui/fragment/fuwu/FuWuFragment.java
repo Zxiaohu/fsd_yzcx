@@ -86,7 +86,7 @@ public class FuWuFragment extends BaseFragment {
 				fuwuDao.fetchSubService(mActivity.getResources().getStringArray(R.array.pid)[flag-2],
 						
 						"subservice", new MyFWdaoListener() {
-							public void fetchSubService(String response) {
+							public void fetchInfo(String response) {
 								LogUtil.i("test", response);
 								Intent intent = new Intent(mActivity,TempActivity.class);
 								intent.putExtra("flag", flag);

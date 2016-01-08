@@ -1,9 +1,8 @@
 package com.fsd.yzcx.ui.fragment.user;
 
-import java.io.File;
-import java.io.IOException;
 
 import com.fsd.yzcx.R;
+import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.user.UserDao;
 import com.fsd.yzcx.dao.user.UserDao.UserDaoListener;
 import com.fsd.yzcx.tools.LogUtil;
@@ -15,15 +14,10 @@ import com.fsd.yzcx.ui.fragment.base.BaseFragment;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -58,15 +52,13 @@ public class UserCenterFragment extends BaseFragment {
 	private TextView tv_userinfo;
 
 
-	private SharedPreferences mPerferences ;
-
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		userInfoDao();
 	}
-	
+
 	public View initView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mRootView =inflater.inflate(R.layout.fragment_usercenter, null);
@@ -102,7 +94,7 @@ public class UserCenterFragment extends BaseFragment {
 	 * 个人信息设置
 	 */
 	private void setUserinfo() {
-		final String uname=mPerferences.getString("uname","");
+		final String uname=SharedPfDao.queryStr("uname");
 
 		tv_userinfo.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -111,6 +103,9 @@ public class UserCenterFragment extends BaseFragment {
 					//从服务器获取用户的信息
 					userDao.fetchUserInfo(uname, new UserDaoListener() {
 						public void fetchUserInfo(String jsonUserInfo) {	
+
+							LogUtil.d("test", jsonUserInfo);
+
 							Intent intent = new Intent(mActivity,TempActivity.class);
 							intent.putExtra("flag", 1);
 							intent.putExtra("userinfo",jsonUserInfo);
@@ -145,7 +140,8 @@ public class UserCenterFragment extends BaseFragment {
 		btn_exit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {	
 				//判处对话框询问是否真的注销
-				mPerferences.edit().clear().commit();
+				SharedPfDao.delAll();//清空所有用户信息
+				
 				((MainActivity)mActivity).tabHost.setCurrentTab(0);//刷新一下
 			}
 		});
@@ -158,8 +154,6 @@ public class UserCenterFragment extends BaseFragment {
 	private void userInfoDao() {
 
 
-		//初始化SharedPreferences
-		mPerferences=PreferenceManager.getDefaultSharedPreferences(mActivity);
 		//判断用户是否登录
 		if(isLogin()){
 			tv_username.setClickable(false);
@@ -182,11 +176,10 @@ public class UserCenterFragment extends BaseFragment {
 		boolean isLogin=false;
 
 
-		String uname=mPerferences.getString("uname", null);
-		String nickname=mPerferences.getString("nickname",null);
+		String uname=SharedPfDao.queryStr("uname");
+		String nickname=SharedPfDao.queryStr("nickname");
 
-		LogUtil.w(this.getClass().getSimpleName(), uname+"------"+nickname);
-
+		
 		if(uname!=null&&nickname!=null){
 
 			tv_username.setText(nickname);
@@ -208,9 +201,5 @@ public class UserCenterFragment extends BaseFragment {
 		return isLogin;
 	}
 
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-	}
 
 }

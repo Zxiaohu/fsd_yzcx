@@ -11,25 +11,11 @@
         android:layout_width="match_parent"
         android:text="投诉建议" />
 
-    <TextView
-        android:id="@+id/tv_fuwu_item1"
-        style="@style/style_fuwu_tv"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_720height"
-        android:text="请选择建议项" />
-
     <Spinner
         android:id="@+id/sp_fuwu_item"
         style="@style/style_fuwu_spinner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720height" />
-
-    <TextView
-        android:id="@+id/tv_fuwu_item"
-        style="@style/style_fuwu_tv"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_720height"
-        android:text="请输入内容" />
 
     <EditText
         android:id="@+id/et_fuwu_content"
@@ -38,6 +24,18 @@
         android:background="@android:drawable/editbox_background_normal"
         android:ems="10" />
 
+     <TextView
+        android:id="@+id/tv_photo"
+        style="@style/style_fuwu_tv"
+        android:layout_width="match_parent"
+        android:background="@color/blue4"
+        android:layout_height="@dimen/dimen_720height"
+        android:text="请选择图片" />
+    <ImageView 
+        android:id="@+id/iv_content"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        />
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"

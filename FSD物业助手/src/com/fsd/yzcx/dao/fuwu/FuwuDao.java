@@ -1,12 +1,12 @@
 package com.fsd.yzcx.dao.fuwu;
 
-import android.content.Context;
+import android.app.Activity;
 
-import com.fsd.yzcx.dao.DialogHelper;
+import com.fsd.yzcx.tools.http.BaseHttpTools;
+import com.fsd.yzcx.tools.http.DialogHttp;
 import com.fsd.yzcx.tools.http.HttpTools;
-import com.fsd.yzcx.tools.http.MyHttpListener;
 import com.lidroid.xutils.http.RequestParams;
-
+import com.fsd.yzcx.tools.http.impl.MyHttpListener;
 
 /**
  * 服务相关的操作
@@ -15,8 +15,8 @@ import com.lidroid.xutils.http.RequestParams;
  */
 public class FuwuDao {
 
-	private Context context;//上下文对象
-	public FuwuDao(Context context){
+	private Activity context;//上下文对象
+	public FuwuDao(Activity context){
 		this.context=context;
 	}
 	private final String CONFIG = HttpTools.URL+"config.asp"+HttpTools.ROOT;
@@ -27,28 +27,23 @@ public class FuwuDao {
 	 * @param configtype 配置的类型
 	 * @return 获取的信息
 	 */
-	public String fetchSubService(String upid,String configtype,final MyFWdaoListener listener){
+	public void fetchSubService(String upid,String configtype,final MyFWdaoListener listener){
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("upid",upid);
 		params.addBodyParameter("configtype",configtype);
 		
-		//发送请求获取子服务项
-		HttpTools.send(CONFIG, params, new MyHttpListener() {
-			public void finish(String response) {
-				//将结果返回出去
-				listener.fetchSubService(response);
+		//带进度条的网络请求
+		BaseHttpTools dialogHttp = new DialogHttp(context, CONFIG, params, "请求服务项", new MyHttpListener() {
+			public void fetchResponse(String response) {
+				listener.fetchInfo(response);
 			}
-			public void onloading(long total, long current, boolean isUploading) {
-				super.onloading(total, current, isUploading);
-				//显示进度条
-				DialogHelper.showDialog(context, isUploading);	
-			}
-		}, "请求服务");
+		});
 		
+		dialogHttp.send();//发送网络请求
 		
-		return "";
 	}
 	public interface MyFWdaoListener{
-		void fetchSubService(String response);
+		public void fetchInfo(String response);
 	}
+	
 }

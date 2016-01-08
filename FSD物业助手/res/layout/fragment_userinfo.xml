@@ -25,6 +25,13 @@
     </com.fsd.yzcx.ui.view.UCListItem>
 
     <com.fsd.yzcx.ui.view.UCListItem
+        android:id="@+id/ucli_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        zxh:text="住址" >
+    </com.fsd.yzcx.ui.view.UCListItem>
+
+    <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +44,7 @@
         android:layout_height="wrap_content"
         zxh:text="收货地址" >
     </com.fsd.yzcx.ui.view.UCListItem>
-    
+
     <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_update_pwd"
         android:layout_width="match_parent"

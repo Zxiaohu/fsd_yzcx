@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
@@ -33,9 +34,9 @@ public class UserInfoUpdateDialog extends DialogFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle arguments = getArguments();
-		tvcontent =arguments.getString("content");
-		tag=arguments.getString("tag");
-		uname = arguments.getString("uname");
+		tvcontent =arguments.getString("content");//内容
+		tag=arguments.getString("tag");//标记
+		uname = arguments.getString("uname");//手机号
 	}
 
 	public class Flag{//服务器返回的提示信息
@@ -49,36 +50,42 @@ public class UserInfoUpdateDialog extends DialogFragment {
 
 		View view = View.inflate(MyApplication.getContext(), R.layout.dialog_userinfo_update, null);
 		et_content = (EditText) view.findViewById(R.id.et_content);
-	
+
 		et_content.setText(tvcontent);
-	
+
 		builder.setView(view).setNegativeButton("确认", new OnClickListener() {
-		private String content;
+			private String content;
 
 			public void onClick(DialogInterface dialog, int which) {
+
 				content = et_content.getText().toString().trim();
-				
-								
-				//LogUtil.d("test",content1+"-"+content2);
-				UserDao userDao = new UserDao(getActivity());
-				
-				//更新用户信息
-				userDao.updtaeUserInfo(uname,tag,content,new UpdateUserListener() {
-					public void updateUserInfo(String info) {
-						Flag flag = new Gson().fromJson(info, Flag.class);
-						
-						if(flag.flag==0){
-							SystemTools.showToastInfo(MyApplication.getContext(), flag.info, 3000, 2);
-						}else{
-							SystemTools.showToastInfo(MyApplication.getContext(), flag.info, 3000, 1);
-							myListener.setMyEvent(content);
+
+				//判断content是否为空！
+
+				if(!TextUtils.isEmpty(content)){
+
+					//LogUtil.d("test",content1+"-"+content2);
+					UserDao userDao = new UserDao(getActivity());
+
+					//更新用户信息
+					userDao.updtaeUserInfo(uname,tag,content,new UpdateUserListener() {
+						public void updateUserInfo(String info) {
+							Flag flag = new Gson().fromJson(info, Flag.class);
+							if(flag.flag==0){
+								SystemTools.showToastInfo(MyApplication.getContext(), flag.info, 3000, 2);
+							}else{
+								SystemTools.showToastInfo(MyApplication.getContext(), flag.info, 3000, 1);
+								myListener.setMyEvent(content);
+							}
 						}
+					});
+
+					}else{
+						SystemTools.showToastInfo(getActivity(), "请输入完整信息", 3000, 2);
 					}
-				});
-
-			}
-		});
-
+				}
+			});
+		
 		return builder.create();
 	}
 	/**

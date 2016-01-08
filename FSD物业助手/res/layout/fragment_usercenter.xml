@@ -44,7 +44,7 @@
             android:layout_marginLeft="@dimen/dimen_720largespacing"
             android:layout_toRightOf="@+id/iv_user"
             android:text="请点击登录"
-            android:textColor="@color/huise"
+            android:textColor="@color/red"
             android:textSize="@dimen/medium" />
     </RelativeLayout>
 
@@ -87,7 +87,7 @@
 
     <Button
         android:id="@+id/btn_exit"
-        style="@style/style_btn_base"
+        style="@style/style_btn_exit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720height"
         android:text="注销登录" />

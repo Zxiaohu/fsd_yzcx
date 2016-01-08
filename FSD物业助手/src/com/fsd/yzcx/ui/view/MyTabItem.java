@@ -74,6 +74,7 @@ public class MyTabItem extends LinearLayout {
 		mNormalIconId=normalIconId;
 		mFocusIconId=focusIconId;
 		iv_content.setImageResource(normalIconId);
+		tv_title.setTextColor(getResources().getColor(R.color.huise));
 	}
 
 	/**
@@ -83,8 +84,10 @@ public class MyTabItem extends LinearLayout {
 	public void setSelect(boolean isSelected){
 		if(isSelected){
 			iv_content.setImageResource(mFocusIconId);
+			tv_title.setTextColor(getResources().getColor(R.color.green));
 		}else{
 			iv_content.setImageResource(mNormalIconId);
+			tv_title.setTextColor(getResources().getColor(R.color.huise));
 		}
 	}
 	

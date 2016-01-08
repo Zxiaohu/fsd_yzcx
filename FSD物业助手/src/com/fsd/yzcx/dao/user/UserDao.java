@@ -1,13 +1,13 @@
 package com.fsd.yzcx.dao.user;
 import android.content.Context;
 
-import com.fsd.yzcx.dao.DialogHelper;
 import com.fsd.yzcx.tools.JsonTools;
+import com.fsd.yzcx.tools.LogUtil;
+import com.fsd.yzcx.tools.http.DialogHttp;
 import com.fsd.yzcx.tools.http.HttpTools;
-import com.fsd.yzcx.tools.http.MyHttpListener;
-import com.fsd.yzcx.ui.actvity.base.MyApplication;
+import com.fsd.yzcx.tools.http.NormalHttp;
 import com.lidroid.xutils.http.RequestParams;
-
+import com.fsd.yzcx.tools.http.impl.MyHttpListener;
 /**
  * 
  * @author zxh
@@ -34,14 +34,17 @@ public class UserDao {
 
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("uname", phonenum);
-		HttpTools.send(USER_INFO,params,new MyHttpListener() {
-			public void finish(String response) {
-				
+		
+		DialogHttp http = new DialogHttp(context,USER_INFO, params, "用户信息", new MyHttpListener() {
+			public void fetchResponse(String response) {
 				if(JsonTools.isJson(response)){
 					daoListener.fetchUserInfo(response.substring(1, response.length()-1));
 				}
 			}
-		}, "用户信息");
+		});
+		
+		http.send();
+		
 	}
 
 	/***
@@ -62,17 +65,16 @@ public class UserDao {
 			params.addBodyParameter("nickname",content);
 		}
 	
-		HttpTools.send(UPDATE_USERINFO, params, new MyHttpListener() {
-			public void finish(String response) {	
-				updateUserListener.updateUserInfo(response.substring(1,response.length()-1));
+		DialogHttp http = new DialogHttp(context,UPDATE_USERINFO, params, "用户信息", new MyHttpListener() {
+			public void fetchResponse(String response) {
+				if(JsonTools.isJson(response)){
+					updateUserListener.updateUserInfo(response.substring(1, response.length()-1));
+				}
+
 			}
-			@Override
-			public void onloading(long total, long current, boolean isUploading) {
-				super.onloading(total, current, isUploading);
-			
-			DialogHelper.showDialog(context, isUploading);
-			}
-		}, "修改信息");
+		});
+		
+		http.send();//发送请求
 		
 	}	
 

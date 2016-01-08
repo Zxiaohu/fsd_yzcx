@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.fsd.yzcx.R;
+import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.login.LoginDao;
 import com.fsd.yzcx.dao.login.LoginDao.myInterfaceCheckNormalLogin;
 import com.fsd.yzcx.dao.login.LoginUserInfo;
@@ -43,7 +44,6 @@ public class NormalLoginPager extends BasePager {
 	private EditText et_pwd;//登录密码
 
 	private MyOnclickimp myOnclickimp;//接口
-	private SharedPreferences preferences;
 
 	public NormalLoginPager(Activity activity) {
 		super(activity);
@@ -87,34 +87,27 @@ public class NormalLoginPager extends BasePager {
 	 * @param upwd
 	 */
 	private void send4serverCh(String uname, String upwd) {
-		
+
 		LoginDao loginDao = new LoginDao();//验证密码和用户
 		loginDao.checkNormalLogin(uname, upwd, new myInterfaceCheckNormalLogin() {
 			public void checkNormalLogin(LoginUserInfo userinfo) {
 				if(userinfo.flag==0){
-						SystemTools.showToastInfo(mActivity,userinfo.info, 3000, 2);
-					}else{					
-						writerUserInfo2PF(userinfo.uname,userinfo.nickname);//写入文件中
-						SystemTools.showToastInfo(mActivity,userinfo.info, 3000, 1);
-						mActivity.startActivity(new Intent(mActivity,MainActivity.class));
-						mActivity.finish();
-					}
+					SystemTools.showToastInfo(mActivity,userinfo.info, 3000, 2);
+				}else{					
+					writerUserInfo2PF(userinfo.uname,userinfo.nickname);//写入文件中
+					SystemTools.showToastInfo(mActivity,userinfo.info, 3000, 1);
+					mActivity.startActivity(new Intent(mActivity,MainActivity.class));
+					mActivity.finish();
+				}
 			}
 		});	
 	}
 
 
 	private void writerUserInfo2PF(String uname, String nickname) {
-
-		preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
-				Editor edit = preferences.edit();
-				edit.clear();
-				
-				edit.putString("nickname", nickname);
-				edit.putString("uname", uname);
-				
-				LogUtil.e(tag, uname+nickname);
-				edit.commit();
+		
+		SharedPfDao.delAll();
+		SharedPfDao.insertData(new String[]{"uname","nickname"}, new String[]{uname,nickname});
 	}
 	/**
 	 * 开放选择房号登录

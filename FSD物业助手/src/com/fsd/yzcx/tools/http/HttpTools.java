@@ -118,6 +118,8 @@ public class HttpTools {
 			
 			public void onFailure(HttpException arg0, String arg1) {
 			//
+				
+				//DialogHelper.showDialog(MyApplication.getContext(), false);
 				SystemTools.showToastInfo(MyApplication.getContext(), tag+"请求失败", 3000, 2);
 				
 			}
@@ -125,6 +127,7 @@ public class HttpTools {
 			public void onSuccess(ResponseInfo<String> arg0) {
 				
 				//SystemTools.showToastInfo(context, tag+"请求成功", 3000, 2);
+				//DialogHelper.showDialog(MyApplication.getContext(), false);
 				String response=arg0.result.toString();
 				LogUtil.i(RoomLoginPager.class.getSimpleName(),response);
 				if(JsonTools.isJson(response)){
@@ -138,14 +141,16 @@ public class HttpTools {
 
 			public void onLoading(long total, long current, boolean isUploading) {
 				super.onLoading(total, current, isUploading);
-				
+
+				//DialogHelper.showDialog(MyApplication.getContext(), true);
 				listener.onloading(total, current, isUploading);
 				
 			}
 
 			public void onStart() {
 				super.onStart();
-			
+
+				//DialogHelper.showDialog(MyApplication.getContext(), true);
 
 			}
 		});
