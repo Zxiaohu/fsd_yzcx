@@ -50,9 +50,13 @@ public class FuWuFragment extends BaseFragment {
 	 * 初始化当前view并设置好数据
 	 */
 	private void initCurrentView() {
-		ucli_suggestions=(UCListItem) mRootView.findViewById(R.id.ucli_suggestions);
-		ucli_Property = (UCListItem) mRootView.findViewById(R.id.ucli_Property);
-		ucli_paid=(UCListItem) mRootView.findViewById(R.id.ucli_paid);
+		ucli_suggestions=(UCListItem) mRootView.findViewById(R.id.ucli_suggestions);//建议
+		ucli_Property = (UCListItem) mRootView.findViewById(R.id.ucli_Property);//物业报修
+		ucli_paid=(UCListItem) mRootView.findViewById(R.id.ucli_paid);//有偿服务
+		
+		/**
+		 * 设置图标
+		 */
 		ucli_suggestions.setIVtitle(R.drawable.btn_check_off_disable_focused);	
 		ucli_Property.setIVtitle(R.drawable.btn_check_off_disable);
 		ucli_paid.setIVtitle(R.drawable.btn_check_off);
@@ -73,7 +77,11 @@ public class FuWuFragment extends BaseFragment {
 	}
 
 	
-	
+	/***
+	 * 跳转的方法
+	 * @param ucListItem 跳转项目
+	 * @param flag  区分条目的标记
+	 */
 	private void setSubItemEvent(UCListItem ucListItem, final int flag) {
 		ucListItem.setOnClickListener(new MyOnClickListener() {
 			public void onClick(View v) {

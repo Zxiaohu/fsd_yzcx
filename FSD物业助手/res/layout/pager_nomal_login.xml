@@ -30,6 +30,7 @@
             android:ems="10"
             android:hint="输入业主编号:"
             android:inputType="textPersonName"
+            android:phoneNumber="true"
             android:textColorHint="@color/white"
             android:textSize="@dimen/small" />
 
@@ -40,6 +41,7 @@
             android:layout_height="@dimen/dimen_720height"
             android:ems="10"
             android:hint="登录密码:"
+            android:phoneNumber="true"
             android:inputType="textPassword"
             android:textColorHint="@color/white"
             android:textSize="@dimen/small" />

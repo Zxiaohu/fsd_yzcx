@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_720height"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/tv_tip"
+        style="@style/style_tv_update_tip"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.382"
+        android:text="原密码:" />
+
+    <EditText
+        android:id="@+id/et_old_pwd"
+        android:layout_width="0dp"
+        android:ems="15"
+        android:phoneNumber="true"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/dimen_720maxspacing"
+        android:layout_weight="0.618" />
+
+</LinearLayout>

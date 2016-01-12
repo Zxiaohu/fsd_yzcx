@@ -24,6 +24,10 @@ public  class SharedPfDao {
 		M_EDITOR=M_PREFERENCES.edit();
 	}
 
+	/**
+	 * 查看所有数据
+	 * @return
+	 */
 	public static String getAll(){
 
 		Map<String, ?> all = M_PREFERENCES.getAll();
@@ -36,14 +40,26 @@ public  class SharedPfDao {
 		return sb.toString();
 	}
 
+	/**
+	 * 清除所有的文件信息
+	 */
 	public static void delAll(){
 		M_EDITOR.clear().commit();
 	}
-	
+	/**
+	 * 插入一条string类型的数据
+	 * @param uname
+	 * @param strContent
+	 */
 	public static void insertData(String uname,String strContent){
 		M_EDITOR.putString(uname,strContent).commit();
 	}
 	
+	/**
+	 * 插入多条string类型的数据
+	 * @param key 
+	 * @param strContent
+	 */
 	public static void insertData(String []key,String []strContent){
 		for (int i = 0; i < strContent.length; i++) {
 			M_EDITOR.putString(key[i], strContent[i]);
@@ -51,14 +67,28 @@ public  class SharedPfDao {
 		M_EDITOR.commit();
 		
 	}
+	/**
+	 * 插入set数据
+	 * @param key
+	 * @param setContent
+	 */
 	public static void insertData(String key,Set<String> setContent){
 		M_EDITOR.putStringSet(key,setContent).commit();
 	}
-	
+	/**
+	 * 根据key查询String的数据
+	 * @param key
+	 * @return
+	 */
 	public static String queryStr(String key){	
 		return M_PREFERENCES.getString(key, null);
 	}
 	
+	/**
+	 * 根据key查找set集合数据
+	 * @param key
+	 * @return
+	 */
 	public static Set<String> querySet(String key){
 		
 		return M_PREFERENCES.getStringSet(key,null);

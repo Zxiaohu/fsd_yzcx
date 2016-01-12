@@ -22,14 +22,14 @@ public class HttpTools {
 	//public static final String URL = "http://www.fusaide.com/aspapp/yzcx/";
 	//	public static final String URL = "http://www.fusaide.com/aspapp/wygl/";
 
-	public static final String URL = "http://192.168.8.110/aspapp/yzcx/";
-
+	public static final String URL = "http://192.168.8.110/aspapp/wygl/";
+	public static final String URL_YZ = "http://192.168.8.110/aspapp/yzcx/";
 	public static final String ROOT = "?sys=android";
 	public static final String APP_LOGIN = URL + "applogin.asp" + ROOT;// 房号登录
 	
-	public static final String LOGIN = URL + "login.asp" + ROOT;// 普通登录
+	public static final String LOGIN = URL_YZ + "login.asp" + ROOT;// 普通登录
 	
-	public static final String SEND_MSG = URL + "sendmsg.asp" + ROOT;// 发送短信
+	public static final String SEND_MSG = URL_YZ + "sendmsg.asp" + ROOT;// 发送短信
 	
 	
 	

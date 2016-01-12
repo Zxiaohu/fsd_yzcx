@@ -8,18 +8,19 @@ package com.fsd.yzcx.dao.user;
  */
 public class UserInfo {
 	/**
-	 *  userinfo.asp 业主个人信息
-	 *  
-		对接参数 userid 登录帐号手机	
-		返回 json 
-		 score 积分 
-		 photo 图像 
-		 address 收货地址
-	 * 
+	score 积分 
+	photo 图像 
+	address 收货地址 
+	nickname 昵称 
+	houseid，
+	housename 
 	 * */
 	private String score;
 	private String photo;
 	private String address;
+	private String nickname;
+	private String houseid;
+	private String housename;
 	public String getScore() {
 		return score;
 	}
@@ -38,6 +39,26 @@ public class UserInfo {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getHouseid() {
+		return houseid;
+	}
+	public void setHouseid(String houseid) {
+		this.houseid = houseid;
+	}
+	public String getHousename() {
+		return housename;
+	}
+	public void setHousename(String housename) {
+		this.housename = housename;
+	}
+	
+	
 	
 
 }

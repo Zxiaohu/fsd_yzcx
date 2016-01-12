@@ -22,8 +22,8 @@ public class UserDao {
 		
 	}
 	//请求用户信息的地址
-	final String  USER_INFO=HttpTools.URL+"userinfo.asp"+HttpTools.ROOT;
-	final String  UPDATE_USERINFO=HttpTools.URL+"updateuserinfo.asp"+HttpTools.ROOT;
+	final String  USER_INFO=HttpTools.URL_YZ+"userinfo.asp"+HttpTools.ROOT;
+	final String  UPDATE_USERINFO=HttpTools.URL_YZ+"updateuserinfo.asp"+HttpTools.ROOT;
 
 	/**
 	 * 
@@ -56,13 +56,17 @@ public class UserDao {
 	 */
 	public void updtaeUserInfo(String uname,String tag,String content, final UpdateUserListener updateUserListener){
 		RequestParams params = new RequestParams();
-		params.addBodyParameter("uname",uname);
+		
+		//电话号码
+		params.addBodyParameter(UserParamsName.UNAME.getName(),uname);
 
-		if(tag.equals("address")){
-			params.addBodyParameter("address",content);
+		//修改地址
+		if(tag.equals(UserParamsName.ADDRESS.getName())){
+			params.addBodyParameter(UserParamsName.ADDRESS.getName(),content);
 		}
-		if(tag.equals("nickname")){
-			params.addBodyParameter("nickname",content);
+		//修改昵称
+		if(tag.equals(UserParamsName.NICKNAME.getName())){
+			params.addBodyParameter(UserParamsName.NICKNAME.getName(),content);
 		}
 	
 		DialogHttp http = new DialogHttp(context,UPDATE_USERINFO, params, "用户信息", new MyHttpListener() {
@@ -75,9 +79,34 @@ public class UserDao {
 		});
 		
 		http.send();//发送请求
-		
 	}	
 
+	/**
+	 * 
+	 * @param uname 手机号
+	 * @param oldpwd 旧密码
+	 * @param newpwd 新密码
+	 * @param listener 修改密码的监听事件
+	 */
+	public  void alterPwd(String uname,String oldpwd,String newpwd,final UpdateUserListener listener){
+		
+		RequestParams params = new RequestParams();
+		params.addBodyParameter(UserParamsName.UNAME.getName(),uname);//手机号
+		params.addBodyParameter(UserParamsName.OLDPASSWORD.getName(),oldpwd);//旧密码
+		params.addBodyParameter(UserParamsName.PASSWORD.getName(),newpwd);//新密码
+		DialogHttp http = new DialogHttp(context,UPDATE_USERINFO, params , "用户信息", new MyHttpListener() {
+			public void fetchResponse(String response) {
+				if(JsonTools.isJson(response)){
+					listener.updateUserInfo(response.substring(1, response.length()-1));
+				}
+			}
+		});
+		
+		http.send();//发送请求
+		
+	}
+	
+	
 	public interface UpdateUserListener{
 		void updateUserInfo(String info);
 	}

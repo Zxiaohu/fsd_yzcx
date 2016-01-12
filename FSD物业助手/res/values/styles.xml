@@ -101,4 +101,10 @@
         <item name="android:background">@drawable/seletor_danger_btn</item>
     </style>
 
+    <style name="style_tv_update_tip" parent="android:Widget.Holo.Light.TextView">
+        <item name="android:gravity">center|bottom|left</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:paddingLeft">@dimen/dimen_720maxspacing</item>
+        <item name="android:textSize">@dimen/micro</item>
+    </style>
 </resources>

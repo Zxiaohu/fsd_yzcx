@@ -1,5 +1,13 @@
 package com.fsd.yzcx.ui.fragment.base;
+import java.util.List;
+
+import com.fsd.yzcx.R;
 import com.fsd.yzcx.tools.LogUtil;
+import com.fsd.yzcx.ui.adapter.CommonAdapter;
+import com.fsd.yzcx.ui.adapter.ViewHolder;
+import com.fsd.yzcx.ui.fragment.fuwu.SuggestionsFragment;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,18 +16,31 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public abstract class BaseFragment extends Fragment {
 
 	public View mRootView;
 	public FragmentActivity mActivity;
+
+	protected CommonAdapter<ConfigInfo> myConfigInfoAdapter;//万能的适配器
+	public List<ConfigInfo> configInfos;//返回的服务的结果
+	
+	public class ConfigInfo{
+		public String Configid;
+		public String Configvalue;
+	}
+	
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mRootView=initView(inflater,container,savedInstanceState);
-
+		
 		return mRootView;
 	}
 
+	
+	
 	public void onAttach(Activity activity) {
 		mActivity=getActivity();
 		super.onAttach(activity);
@@ -38,6 +59,42 @@ public abstract class BaseFragment extends Fragment {
 		initData(savedInstanceState);
 	}
 
+	
+	
+	
+	
+	/**
+	 * 获取子服务项信息
+	 */
+	protected void getSubServices() {
+		String config_info = this.getArguments().getString("config_info");//获取服务配置信息
+		
+		LogUtil.v("test_argment", config_info);
+		
+		if(config_info!=null){
+			configInfos = new Gson().fromJson(config_info,new TypeToken<List<ConfigInfo>>(){}.getType());
+		}
+	}
+	
+	
+	
+	
+	/**
+	 * 初始化适配器的方法
+	 * @return
+	 */
+	protected CommonAdapter<ConfigInfo> initMyadapter() {
+		/**
+		 * 适配器
+		 */
+		CommonAdapter<ConfigInfo> myAdapter= new CommonAdapter<SuggestionsFragment.ConfigInfo>(mActivity,configInfos,R.layout.adapter_simple) {
+			public void convert(ViewHolder helper, ConfigInfo item) {
+				TextView tv_title=helper.getView(R.id.tv_fuwu_title);
+				tv_title.setText(item.Configvalue);
+			}
+		};
+		return myAdapter;
+	}
 	abstract public View initView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState);
 	abstract public void initData(Bundle bundle);

@@ -18,6 +18,7 @@ import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.login.LoginDao;
 import com.fsd.yzcx.dao.login.LoginDao.myInterfaceCheckNormalLogin;
 import com.fsd.yzcx.dao.login.LoginUserInfo;
+import com.fsd.yzcx.dao.user.UserParamsName;
 import com.fsd.yzcx.tools.ForEmptyTool;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
@@ -56,6 +57,11 @@ public class NormalLoginPager extends BasePager {
 
 	public void initData() {
 		LogUtil.i(tag, "第一页数据加载中");
+		//设置初始值
+		String uname=null;
+		if((uname=SharedPfDao.queryStr(UserParamsName.UNAME.getName()))!=null){
+			et_name.setText(uname);
+		}
 		//跳转到房号登入的接口
 		setEvent4ChRoom();	
 		//登录操作
@@ -64,10 +70,18 @@ public class NormalLoginPager extends BasePager {
 	}
 
 	private void setEvent4Login() {
+		
+		/**
+		 * 点击事件
+		 */
 		btn_login.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				String uid=et_name.getText().toString().trim();
 				String upwd=et_pwd.getText().toString().trim();	
+				
+				
+				LogUtil.e("test", uid+upwd);
+				
 				//验证合法性
 				if(ForEmptyTool.isAnyEmpty(new Object []{et_name,et_pwd})){
 
@@ -91,6 +105,7 @@ public class NormalLoginPager extends BasePager {
 		LoginDao loginDao = new LoginDao();//验证密码和用户
 		loginDao.checkNormalLogin(uname, upwd, new myInterfaceCheckNormalLogin() {
 			public void checkNormalLogin(LoginUserInfo userinfo) {
+				LogUtil.v("test", userinfo.flag+"");
 				if(userinfo.flag==0){
 					SystemTools.showToastInfo(mActivity,userinfo.info, 3000, 2);
 				}else{					

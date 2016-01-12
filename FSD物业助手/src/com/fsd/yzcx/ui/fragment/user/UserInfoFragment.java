@@ -1,6 +1,6 @@
 package com.fsd.yzcx.ui.fragment.user;
 
-import java.util.Set;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.dao.db.SharedPfDao;
-import com.fsd.yzcx.tools.DataTools;
 import com.fsd.yzcx.tools.SystemTools;
+import com.fsd.yzcx.ui.actvity.TempActivity;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
 import com.fsd.yzcx.ui.view.UCListItem;
 import com.fsd.yzcx.ui.view.UCListItem.MyOnClickListener;
@@ -47,8 +47,7 @@ public class UserInfoFragment extends BaseFragment {
 
 		String userinfo=getArguments().getString("userinfo");
 		//解析对象
-		this.userInfo=new Gson().fromJson(userinfo, UserInfo.class);
-
+		this.userInfo=new Gson().fromJson(userinfo, UserInfo.class);	
 
 		//初始化当前的view
 		initCurrentView();
@@ -57,6 +56,9 @@ public class UserInfoFragment extends BaseFragment {
 	}
 
 
+	/**
+	 * 初始化当前的view界面
+	 */
 	private void initCurrentView() {
 
 		uclt_photo =(UCListItem) mRootView.findViewById(R.id.ucli_photo);
@@ -101,49 +103,39 @@ public class UserInfoFragment extends BaseFragment {
 		//获取fragmentmanager
 		supportFragmentManager = mActivity.getSupportFragmentManager();
 		
-		//统一将用户的信息填充到 本地文件
-		addUserInfo2pf();
-
 		final String uname=SharedPfDao.queryStr("uname");//获取用户的信息
 
 		//判断手机号不等于null再继续执行
 		if(uname!=null){
+			
+			//设置修改密码的方法
+			setAlertPwdEvent();
+			
 			final UserInfoUpdateDialog dialog = new UserInfoUpdateDialog();
 			//设置修改地址的方法
 			setUcLiEvent(uclt_address, uname,"address", dialog);
 			//设置用户昵称的方法
 			setUcLiEvent(uclt_nickname, uname,"nickname", dialog);
-			//设置修改密码的方法
+		
 		}
 	}
 
-	/***
-	 * 将用户的信息存到本地文件中
-	 * 
-	 * 房间个能一个用户拥有多间房号,
-	 * 0005|5|2|1001@
-	 * 0005|6|1|2801@
-	 * 0005|6|1|2802@
-	 * 0005|6|1|2803, 
-	 * "housename" :怡江苑(H5)-E栋-2单元-1001|
-	 * 	                    怡江苑(H5)-F栋-1单元-2801|
-	 *              怡江苑(H5)-F栋-1单元-2802|
-	 *              怡江苑(H5)-F栋-1单元-2803"
+	/**
+	 * 修改密码的方法
 	 */
-	private void addUserInfo2pf() {
-		
-		String strHouseId=userInfo.houseid;
-		String [] houseids;//房号数组
-		Set<String> houseidSet;//房间号的set
-		//检测该用户是否有多个房间
-		if(DataTools.isHaveIn("@", strHouseId)){
-			houseids = strHouseId.split("@");
-			//将所有的房间转为set集合
-			houseidSet = DataTools.makeStrArr2Set(houseids);
-		}else{
-			houseids = new String[1];
-		}
+	private void setAlertPwdEvent() {
+		uclt_update_pwd.setOnClickListener(new MyOnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(mActivity,TempActivity.class);
+				intent.putExtra("flag",5);
+				//跳转到修改密码的页面
+				mActivity.startActivity(intent);
+				
+				SystemTools.showToastInfo(mActivity, "我被点击",3333, 1);
+			}
+		});
 	}
+
 
 	/**
 	 * 添加条目事件的公共方法
@@ -167,6 +159,8 @@ public class UserInfoFragment extends BaseFragment {
 							if(ucListItem.equals(uclt_nickname)){
 								//修改原文件中的值
 								SharedPfDao.insertData("nickname",content);	
+								//不用解析，直接存储
+								SharedPfDao.insertData("","");
 							}else if(ucListItem.equals(uclt_address)){
 								//修改原文件中的值
 								SharedPfDao.insertData("address",content);
@@ -176,7 +170,6 @@ public class UserInfoFragment extends BaseFragment {
 				}else{
 					SystemTools.showToastInfo(mActivity, "您没有登录", 3000, 2);
 				}
-
 
 			}
 		});

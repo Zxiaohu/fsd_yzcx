@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/styleTtv_title"
+        android:layout_width="match_parent"
+        android:text="修改密码" />
+
+    <include
+        android:id="@+id/old_pwd"
+        layout="@layout/pwd_update_list" />
+
+    <include
+        android:id="@+id/new_pwd"
+        layout="@layout/pwd_update_list" />
+
+    <include
+        android:id="@+id/new_pwd1"
+        layout="@layout/pwd_update_list" />
+
+    <Button
+        android:id="@+id/btn_save"
+        style="@style/style_btn_base"
+        android:text="保存"
+        android:layout_marginTop="@dimen/dimen_720largespacing"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_720height" />
+
+</LinearLayout>

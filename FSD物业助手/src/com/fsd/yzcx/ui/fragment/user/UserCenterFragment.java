@@ -1,24 +1,24 @@
 package com.fsd.yzcx.ui.fragment.user;
-
-
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.user.UserDao;
+import com.fsd.yzcx.dao.user.UserParamsName;
 import com.fsd.yzcx.dao.user.UserDao.UserDaoListener;
+import com.fsd.yzcx.dao.user.UserInfo;
+import com.fsd.yzcx.tools.DataTools;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.actvity.LoginActivity;
 import com.fsd.yzcx.ui.actvity.MainActivity;
 import com.fsd.yzcx.ui.actvity.TempActivity;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
+import com.google.gson.Gson;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,39 +79,36 @@ public class UserCenterFragment extends BaseFragment {
 		 *   1.1判断文件中是否存存在，存在的话就直接设置，用户的相关信息并显示 
 		 * 	 1.2没有登录点击可以跳转到登录页去登录,在设置信息
 		 */
+		//当前页面的用户信息的设置
 		userInfoDao();
-		//用户现则头像的相关操作
-		//userHeadImgDao();
-
-		//个人信息设置
-		setUserinfo();
 
 		//注销的相关设置
 		exitDao();
+		//用户现则头像的相关操作
+		//userHeadImgDao();
+		//个人信息设置
+		setUserinfo();
 	}
 
 	/**
-	 * 个人信息设置
+	 * 个人信息修改设置
 	 */
 	private void setUserinfo() {
-		final String uname=SharedPfDao.queryStr("uname");
-
 		tv_userinfo.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				UserDao userDao = new UserDao(mActivity);
-				if(!uname.equals("")){
+				//先判断是否登录
+				final String uname=SharedPfDao.queryStr(UserParamsName.UNAME.getName());
+				if(uname!=null){
+					//跳转页面
+					UserDao userDao = new UserDao(mActivity);
 					//从服务器获取用户的信息
 					userDao.fetchUserInfo(uname, new UserDaoListener() {
 						public void fetchUserInfo(String jsonUserInfo) {	
-
 							LogUtil.d("test", jsonUserInfo);
-
 							Intent intent = new Intent(mActivity,TempActivity.class);
 							intent.putExtra("flag", 1);
 							intent.putExtra("userinfo",jsonUserInfo);
 							mActivity.startActivity(intent);
-
-
 						}
 					});	
 				}else{
@@ -140,8 +137,10 @@ public class UserCenterFragment extends BaseFragment {
 		btn_exit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {	
 				//判处对话框询问是否真的注销
-				SharedPfDao.delAll();//清空所有用户信息
 				
+				
+				
+				SharedPfDao.delAll();//清空所有用户信息
 				((MainActivity)mActivity).tabHost.setCurrentTab(0);//刷新一下
 			}
 		});
@@ -174,14 +173,10 @@ public class UserCenterFragment extends BaseFragment {
 	 */
 	private boolean isLogin() {
 		boolean isLogin=false;
-
-
 		String uname=SharedPfDao.queryStr("uname");
 		String nickname=SharedPfDao.queryStr("nickname");
-
 		
 		if(uname!=null&&nickname!=null){
-
 			tv_username.setText(nickname);
 			tv_fools.setText("手机号:"+uname);
 			if(nickname.equals("")){
@@ -190,7 +185,8 @@ public class UserCenterFragment extends BaseFragment {
 			if(uname.equals("")){
 				tv_fools.setText("请完善个人信息");
 			}
-
+			addUserInfo2pf(uname);//添加用户信息到本地
+			
 			isLogin=true;
 		}else{
 			tv_username.setText("请点击登录");
@@ -200,6 +196,35 @@ public class UserCenterFragment extends BaseFragment {
 		LogUtil.w(this.getClass().getSimpleName(), "判断用户是否登录执行");
 		return isLogin;
 	}
-
+	
+	
+	
+	/***
+	 * 将用户的信息存到本地文件中
+	 * 
+	 */
+	private void addUserInfo2pf(String uname) {
+		//用户信息处理类
+		UserDao userDao = new UserDao(mActivity);
+		userDao.fetchUserInfo(uname,new UserDaoListener() {
+			public void fetchUserInfo(String jsonUserInfo) {
+				//解析用户的信息数据
+				UserInfo userInfo=new Gson().fromJson(jsonUserInfo, UserInfo.class);
+				//不用解析，直接存储
+				SharedPfDao.insertData(
+						new String[]{
+								UserParamsName.NICKNAME.getName(),
+								UserParamsName.ADDRESS.getName(),
+								UserParamsName.HOUSE_ID.getName(),
+								UserParamsName.HOUSE_NAME.getName()},
+						new String[]{
+								userInfo.getNickname(),
+								userInfo.getAddress(),
+								userInfo.getHouseid(),
+								userInfo.getHousename()});
+			}
+		});
+	
+	}
 
 }

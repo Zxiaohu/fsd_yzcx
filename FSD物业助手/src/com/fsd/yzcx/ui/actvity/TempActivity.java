@@ -13,6 +13,7 @@ import com.fsd.yzcx.ui.fragment.base.BaseFragment;
 import com.fsd.yzcx.ui.fragment.fuwu.PaidFragment;
 import com.fsd.yzcx.ui.fragment.fuwu.PropertyFragment;
 import com.fsd.yzcx.ui.fragment.fuwu.SuggestionsFragment;
+import com.fsd.yzcx.ui.fragment.user.AlertPwdFragment;
 import com.fsd.yzcx.ui.fragment.user.UserInfoFragment;
 
 public class TempActivity extends BaseActivity {
@@ -69,6 +70,10 @@ public class TempActivity extends BaseActivity {
 			break;
 		case 4:
 			setFragmentAndData(bundle,new PaidFragment());
+			break;
+		case 5:
+			setFragmentAndData(bundle,new AlertPwdFragment());
+			
 			break;
 		default:
 			break;
