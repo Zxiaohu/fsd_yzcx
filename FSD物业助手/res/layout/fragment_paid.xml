@@ -37,11 +37,8 @@
         />
     <Button
         android:id="@+id/button"
+        style="@style/style_btn_fuwu"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720height"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/dimen_720minspacing"
-        android:textColor="@color/white"
-        android:background="@drawable/seletor_info_btn"
         android:text="确认" />
 </LinearLayout>

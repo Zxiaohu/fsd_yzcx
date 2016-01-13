@@ -6,14 +6,18 @@
     <TextView
         style="@style/styleTtv_title"
         android:layout_width="match_parent"
+        android:textSize="@dimen/medium"
         android:text="修改信息" />
 
     <EditText
         android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720height"
+        android:background="@android:drawable/editbox_background_normal"
         android:ems="10"
-        android:textColor="@color/black" >
-    </EditText>
+        android:textCursorDrawable="@color/blue2"
+        android:textColor="@color/black" 
+        android:cursorVisible="true"
+        />
 
 </LinearLayout>

@@ -108,11 +108,6 @@ public class TempActivity extends BaseActivity {
 		if(keyCode == KeyEvent.KEYCODE_BACK ){
 			this.finish();
 		}
-		
-		
-		this.finish();
-		
-		
-		return super.onKeyDown(keyCode, event);
+		return true;
 	}
 }

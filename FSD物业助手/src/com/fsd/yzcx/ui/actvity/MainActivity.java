@@ -1,10 +1,13 @@
 package com.fsd.yzcx.ui.actvity;
 
 import com.fsd.yzcx.R;
+import com.fsd.yzcx.tools.ActivityCollector;
 import com.fsd.yzcx.ui.actvity.base.BaseActivity;
 import com.fsd.yzcx.ui.fragment.fuwu.FuWuFragment;
 import com.fsd.yzcx.ui.fragment.user.UserCenterFragment;
 import com.fsd.yzcx.ui.view.MyTabItem;
+import com.fsd.yzcx.ui.view.dialog.TipDialog;
+import com.fsd.yzcx.ui.view.dialog.TipDialog.callBackOk;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
@@ -38,14 +41,15 @@ public class MainActivity extends BaseActivity {
 		final MyTabItem fuwuTabItem = new MyTabItem(this);
 		fuwuTabItem.setTitle("服务");
 		fuwuTabItem.setImage(R.drawable.star_green, R.drawable.star_red);
-
+		//添加tab
 		tabHost.addTab(tabHost.newTabSpec(TAG_FUWU).setIndicator(fuwuTabItem),
 				FuWuFragment.class, null);
-
+		
+		//2.初始化tabSpec;
 		final MyTabItem usercenterTabItem= new MyTabItem(this);
 		usercenterTabItem.setTitle("我的");
 		usercenterTabItem.setImage(R.drawable.star_green, R.drawable.star_red);
-
+		//添加tab
 		tabHost.addTab(tabHost.newTabSpec(TAG_USER_CENTER).setIndicator(usercenterTabItem),
 				UserCenterFragment.class, null);
 
@@ -68,26 +72,21 @@ public class MainActivity extends BaseActivity {
 				}
 			}
 		});
-
 	}
 	
-	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		int flag=0;
-		if(tabHost.getCurrentTabTag().equals(TAG_FUWU)){
-			if(flag==1){
-				
-				this.finish();
-			
-			}else{
-				return super.onKeyDown(keyCode, event);
-			}
-		}else if(tabHost.getCurrentTabTag().equals(TAG_USER_CENTER)){
-			flag=1;
-			tabHost.setCurrentTab(0);
-			
+		if(tabHost.getCurrentTabTag().equals(TAG_FUWU)){//获取当前是哪一页：是服务页的话,就要跳出
+				TipDialog dialog = new TipDialog();
+				dialog.setCallBackOK(new callBackOk() {
+					public void onOkClick() {
+						ActivityCollector.finshAll();
+					}
+				}, "您真的要退出应用吗?");
+				dialog.show(getSupportFragmentManager(), "exit_main_activity");
+				return true;
+		}else if(tabHost.getCurrentTabTag().equals(TAG_USER_CENTER)){//是个人中心,就返回发服务页
+			tabHost.setCurrentTab(0);	
 		}
-		
 		return true;
 	}
 }

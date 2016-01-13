@@ -12,6 +12,8 @@ import com.fsd.yzcx.ui.actvity.LoginActivity;
 import com.fsd.yzcx.ui.actvity.MainActivity;
 import com.fsd.yzcx.ui.actvity.TempActivity;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
+import com.fsd.yzcx.ui.view.dialog.TipDialog;
+import com.fsd.yzcx.ui.view.dialog.TipDialog.callBackOk;
 import com.google.gson.Gson;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -134,16 +136,25 @@ public class UserCenterFragment extends BaseFragment {
 	 * 注销账号的操作
 	 */
 	private void exitDao() {
-		btn_exit.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {	
-				//判处对话框询问是否真的注销
-				
-				
-				
-				SharedPfDao.delAll();//清空所有用户信息
-				((MainActivity)mActivity).tabHost.setCurrentTab(0);//刷新一下
-			}
-		});
+		if(isLogin()){//判断是否登录
+			btn_exit.setClickable(true);
+			btn_exit.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {	
+					//判处对话框询问是否真的注销
+					final TipDialog tipDialog = new TipDialog();
+					tipDialog.setCallBackOK(new callBackOk() {
+						public void onOkClick() {
+							SharedPfDao.delAll();//清空所有用户信息
+							((MainActivity)mActivity).tabHost.setCurrentTab(0);//刷新一下
+							tipDialog.dismiss();
+						}
+					},"您真的要注销吗？");
+					tipDialog.show(frgManager, "tip_exit");
+				}
+			});
+		}else{
+			btn_exit.setClickable(false);
+		}
 	}
 
 
@@ -175,7 +186,7 @@ public class UserCenterFragment extends BaseFragment {
 		boolean isLogin=false;
 		String uname=SharedPfDao.queryStr("uname");
 		String nickname=SharedPfDao.queryStr("nickname");
-		
+
 		if(uname!=null&&nickname!=null){
 			tv_username.setText(nickname);
 			tv_fools.setText("手机号:"+uname);
@@ -185,7 +196,10 @@ public class UserCenterFragment extends BaseFragment {
 			if(uname.equals("")){
 				tv_fools.setText("请完善个人信息");
 			}
+			
+			
 			addUserInfo2pf(uname);//添加用户信息到本地
+
 			
 			isLogin=true;
 		}else{
@@ -196,9 +210,9 @@ public class UserCenterFragment extends BaseFragment {
 		LogUtil.w(this.getClass().getSimpleName(), "判断用户是否登录执行");
 		return isLogin;
 	}
-	
-	
-	
+
+
+
 	/***
 	 * 将用户的信息存到本地文件中
 	 * 
@@ -210,6 +224,18 @@ public class UserCenterFragment extends BaseFragment {
 			public void fetchUserInfo(String jsonUserInfo) {
 				//解析用户的信息数据
 				UserInfo userInfo=new Gson().fromJson(jsonUserInfo, UserInfo.class);
+				
+				
+				//判断是否是多房间的用户,
+				/**
+				 * 如果是多用户就用将该信息转换为json格式的数据存起来呢
+				 */
+				String houseid=userInfo.getHouseid();
+				String housename=userInfo.getHousename();
+				if(DataTools.isHaveIn("@",houseid )){
+					houseid=DataTools.mStrArr2Json(houseid.split("@"),"jsonHouseid","houseid");
+					housename=DataTools.mStrArr2Json(houseid.split("\\|"),"jsonHousename","housename");
+				}				
 				//不用解析，直接存储
 				SharedPfDao.insertData(
 						new String[]{
@@ -217,14 +243,14 @@ public class UserCenterFragment extends BaseFragment {
 								UserParamsName.ADDRESS.getName(),
 								UserParamsName.HOUSE_ID.getName(),
 								UserParamsName.HOUSE_NAME.getName()},
-						new String[]{
+								new String[]{
 								userInfo.getNickname(),
 								userInfo.getAddress(),
-								userInfo.getHouseid(),
-								userInfo.getHousename()});
+								houseid,
+								housename});
 			}
 		});
-	
+
 	}
 
 }

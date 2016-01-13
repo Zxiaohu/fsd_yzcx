@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +23,14 @@ public abstract class BaseFragment extends Fragment {
 
 	public View mRootView;
 	public FragmentActivity mActivity;
-
-	protected CommonAdapter<ConfigInfo> myConfigInfoAdapter;//万能的适配器
-	public List<ConfigInfo> configInfos;//返回的服务的结果
 	
-	public class ConfigInfo{
-		public String Configid;
-		public String Configvalue;
+	public FragmentManager frgManager;
+	protected CommonAdapter<ConfigInfo> myConfigInfoAdapter;//万能的适配器
+	public List<ConfigInfo> configInfos;//返回的服务项的数据
+	
+	public class ConfigInfo{//服务项信息
+		public String Configid;//服务项id
+		public String Configvalue;//服务项值
 	}
 	
 	
@@ -43,6 +45,7 @@ public abstract class BaseFragment extends Fragment {
 	
 	public void onAttach(Activity activity) {
 		mActivity=getActivity();
+		frgManager=getFragmentManager();
 		super.onAttach(activity);
 	}
 	public void onDetach() {

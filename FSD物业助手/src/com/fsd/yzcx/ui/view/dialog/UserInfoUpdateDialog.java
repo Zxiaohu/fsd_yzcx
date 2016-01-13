@@ -58,7 +58,7 @@ public class UserInfoUpdateDialog extends DialogFragment {
 
 			public void onClick(DialogInterface dialog, int which) {
 
-				content = et_content.getText().toString().trim();
+				content = et_content.getText().toString().trim();//获取内容
 
 				//判断content是否为空！
 
@@ -84,7 +84,7 @@ public class UserInfoUpdateDialog extends DialogFragment {
 						SystemTools.showToastInfo(getActivity(), "请输入完整信息", 3000, 2);
 					}
 				}
-			});
+			}).setPositiveButton("取消", null);
 		
 		return builder.create();
 	}

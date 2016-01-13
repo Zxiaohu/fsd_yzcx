@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.dao.db.SharedPfDao;
+import com.fsd.yzcx.tools.DataTools;
+import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.actvity.TempActivity;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
@@ -87,14 +89,25 @@ public class UserInfoFragment extends BaseFragment {
 			uclt_photo.setIVtitle(R.drawable.user_96px);
 			uclt_photo.setTvContent("请设置头像");
 		}
-
-		uclt_room.setTvContent(userInfo.housename);
+		String houseid=userInfo.houseid;
+		String housename=userInfo.housename;
+		
+		if(DataTools.isHaveIn("@",houseid)){
+			houseid=DataTools.mStrArr2Json(houseid.split("@"),"jsonHouseid","houseid");
+			housename=DataTools.mStrArr2Json(houseid.split("\\|"),"jsonHousename","housename");
+		}
+		
+		SharedPfDao.insertData("housename", housename);
+		SharedPfDao.insertData("houseid", houseid);
+		
+		LogUtil.i("test1",houseid);
+		
+		uclt_room.setTvContent(housename);
 		uclt_nickname.setTvContent(nickname);
 		uclt_score.setTvContent(userInfo.score+"分");
 		uclt_address.setTvContent(address);
 
 	}
-
 
 
 	//初始化操作的方法
@@ -130,8 +143,6 @@ public class UserInfoFragment extends BaseFragment {
 				intent.putExtra("flag",5);
 				//跳转到修改密码的页面
 				mActivity.startActivity(intent);
-				
-				SystemTools.showToastInfo(mActivity, "我被点击",3333, 1);
 			}
 		});
 	}
@@ -160,7 +171,7 @@ public class UserInfoFragment extends BaseFragment {
 								//修改原文件中的值
 								SharedPfDao.insertData("nickname",content);	
 								//不用解析，直接存储
-								SharedPfDao.insertData("","");
+								//SharedPfDao.insertData("","");
 							}else if(ucListItem.equals(uclt_address)){
 								//修改原文件中的值
 								SharedPfDao.insertData("address",content);

@@ -48,6 +48,7 @@ public abstract class BaseHttpTools {
 					//
 					onHttpStop();
 					SystemTools.showToastInfo(MyApplication.getContext(), tag+"请求失败", 3000, 2);
+					LogUtil.e("test",arg1);
 				}
 
 				public void onSuccess(ResponseInfo<String> arg0) {

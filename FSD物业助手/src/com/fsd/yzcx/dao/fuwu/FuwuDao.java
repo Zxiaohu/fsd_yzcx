@@ -1,13 +1,17 @@
 package com.fsd.yzcx.dao.fuwu;
 
+import android.app.AlertDialog;
 import android.content.Context;
-
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.tools.http.BaseHttpTools;
 import com.fsd.yzcx.tools.http.DialogHttp;
 import com.fsd.yzcx.tools.http.HttpTools;
-import com.fsd.yzcx.tools.http.NormalHttp;
 import com.lidroid.xutils.http.RequestParams;
 import com.fsd.yzcx.tools.http.impl.MyHttpListener;
+import com.fsd.yzcx.ui.actvity.base.MyApplication;
+import com.google.gson.Gson;
 
 /**
  * 服务相关的操作
@@ -18,10 +22,15 @@ public class FuwuDao {
 
 	private final String CONFIG = HttpTools.URL+"config.asp"+HttpTools.ROOT;
 	private final String PAIGONG = HttpTools.URL_YZ+"paigong.asp"+HttpTools.ROOT;
-	
+
 	private Context context;//上下文对象
 	public FuwuDao(Context context){
 		this.context=context;
+	}
+
+	class Info{
+		int flag;
+		String info;
 	}
 	/**
 	 * 
@@ -33,18 +42,18 @@ public class FuwuDao {
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("upid",upid);
 		params.addBodyParameter("configtype",configtype);
-		
+
 		//带进度条的网络请求
 		BaseHttpTools dialogHttp = new DialogHttp(context, CONFIG, params, "请求服务项", new MyHttpListener() {
 			public void fetchResponse(String response) {
-				listener.fetchInfo(response);
+				listener.fetchInfo(response);//回调接口
 			}
 		});
-		
+
 		dialogHttp.send();//发送网络请求
-		
+
 	}
-	
+
 
 	/**
 	 * 派工
@@ -63,7 +72,7 @@ public class FuwuDao {
 			String Content,
 			String ComplainTypeID,
 			String ComplainSubID,final MyFWdaoListener listener){
-		
+
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("houseid",houseid);
 		params.addBodyParameter("Complainer",Complainer);
@@ -72,15 +81,25 @@ public class FuwuDao {
 		params.addBodyParameter("ComplainTypeID",ComplainTypeID);
 		params.addBodyParameter("ComplainSubID",ComplainSubID);
 		params.addBodyParameter("submit","ok");
+
 		//带进度条的网络请求
-		BaseHttpTools dialogHttp = new DialogHttp(context,PAIGONG, params, "请求服务项", new MyHttpListener() {
+		BaseHttpTools dialogHttp = new DialogHttp(context,PAIGONG, params, "提交服务订单", new MyHttpListener() {
 			public void fetchResponse(String response) {
-				listener.fetchInfo(response);
+				String info = response.substring(1, response.length()-1);
+				Info info2 = new Gson().fromJson(info, Info.class);
+				if(info2.flag==1){
+					listener.fetchInfo(info2.info);			
+				}else{
+					SystemTools.showToastInfo(MyApplication.getContext(), info2.info, 3000, 1);
+				}
 			}
 		});
-		
+
 		dialogHttp.send();//发送网络请求
 	}
+
+	
+
 	
 	/**
 	 * 
@@ -90,5 +109,5 @@ public class FuwuDao {
 	public interface MyFWdaoListener{
 		public void fetchInfo(String response);
 	}
-	
+
 }

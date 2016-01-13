@@ -11,6 +11,7 @@
     <dimen name="dimen_720height">48dp</dimen>
     <dimen name="dimen_720sheight">24dp</dimen>
     <dimen name="dimen_720maxheight">96dp</dimen>
+    <dimen name="dimen_720largeheight">144dp</dimen>
     <dimen name="dimen_720maxspacing">8dp</dimen>
     <dimen name="dimen_720largespacing">16dp</dimen>
     <dimen name="dimen_720minspacing">4dp</dimen>
