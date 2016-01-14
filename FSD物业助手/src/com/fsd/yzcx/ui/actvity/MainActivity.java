@@ -53,8 +53,8 @@ public class MainActivity extends BaseActivity {
 		tabHost.addTab(tabHost.newTabSpec(TAG_USER_CENTER).setIndicator(usercenterTabItem),
 				UserCenterFragment.class, null);
 
-		fuwuTabItem.setSelect(true);
-		tabHost.setCurrentTabByTag(TAG_FUWU);
+		usercenterTabItem.setSelect(true);
+		tabHost.setCurrentTabByTag(TAG_USER_CENTER);
 
 		//3.监听tabhost选中事件
 		tabHost.setOnTabChangedListener(new OnTabChangeListener() {

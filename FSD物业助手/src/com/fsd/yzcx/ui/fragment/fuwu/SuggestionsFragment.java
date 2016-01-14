@@ -17,12 +17,13 @@ import com.fsd.yzcx.dao.user.UserParamsName;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
+import com.fsd.yzcx.ui.view.UCListItem;
 
 public class SuggestionsFragment extends BaseFragment {
 
 	
 	private Spinner sp_fuwu_item;//投诉
-	private TextView tv_photo;//选择照片或拍照
+	private UCListItem ucli_photo;//选择照片或拍照
 	private ImageView iv_content;//选择照片或拍照
 	private EditText et_content;//建议的内容
 	private Button btn_submit;//提交的按钮
@@ -43,11 +44,15 @@ public class SuggestionsFragment extends BaseFragment {
 
 		//获取子服务项信息
 		getSubServices();
-		sp_fuwu_item = (Spinner) mRootView.findViewById(R.id.sp_fuwu_item);
-		tv_photo =(TextView) mRootView.findViewById(R.id.tv_photo);
+		
+		sp_fuwu_item = (Spinner) mRootView.findViewById(R.id.sp_fuwu_item).findViewById(R.id.sp_item);
+		
+		ucli_photo =(UCListItem) mRootView.findViewById(R.id.ucli_photo);
+		
 		iv_content =(ImageView) mRootView.findViewById(R.id.iv_content);
 		et_content =(EditText) mRootView.findViewById(R.id.et_fuwu_content);
 		btn_submit=(Button) mRootView.findViewById(R.id.button);
+		
 		//初始化适配器
 		myConfigInfoAdapter = initMyadapter();
 		//设置数据适配器

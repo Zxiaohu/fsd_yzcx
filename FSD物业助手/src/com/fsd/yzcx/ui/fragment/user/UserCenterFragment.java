@@ -234,7 +234,7 @@ public class UserCenterFragment extends BaseFragment {
 				String housename=userInfo.getHousename();
 				if(DataTools.isHaveIn("@",houseid )){
 					houseid=DataTools.mStrArr2Json(houseid.split("@"),"jsonHouseid","houseid");
-					housename=DataTools.mStrArr2Json(houseid.split("\\|"),"jsonHousename","housename");
+					housename=DataTools.mStrArr2Json(housename.split("\\|"),"jsonHousename","housename");
 				}				
 				//不用解析，直接存储
 				SharedPfDao.insertData(

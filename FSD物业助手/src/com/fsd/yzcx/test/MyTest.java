@@ -12,13 +12,9 @@ import android.test.AndroidTestCase;
 public class MyTest extends AndroidTestCase {
 
 	FuwuDao fuwuDao ;
-	private String 傻逼;
-	private String 逗逼;
 	//获取那个控件给它赋值登录测试
 	protected void setUp() throws Exception {
 		super.setUp();
-		傻逼 = "sb";
-		逗逼 = "db";
 	}
 
 	//测试方法
@@ -38,7 +34,6 @@ public class MyTest extends AndroidTestCase {
 		
 		//String json=DataTools.mStrArr2Json(new String[]{"你好啊","为什么","你好"},"arrname","key");
 		
-		LogUtil.i("test", 逗逼+傻逼);
 	}
 
 	protected void tearDown() throws Exception {

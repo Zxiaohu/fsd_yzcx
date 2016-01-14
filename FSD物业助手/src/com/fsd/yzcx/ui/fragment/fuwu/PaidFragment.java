@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -14,21 +15,27 @@ import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.fuwu.FuwuDao;
 import com.fsd.yzcx.dao.fuwu.FuwuDao.MyFWdaoListener;
 import com.fsd.yzcx.dao.user.UserParamsName;
+import com.fsd.yzcx.tools.JsonTools;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
+import com.fsd.yzcx.ui.helper.RoomSelectHelper;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-
+/**
+ * 有偿服务
+ * @author zxh
+ *
+ */
 public class PaidFragment extends BaseFragment {
 
-	@ViewInject(R.id.sp_fuwu_item)
 	private Spinner sp_fuwu_item;
 	@ViewInject(R.id.et_fuwu_content)
 	private EditText et_content;//建议的内容
 	@ViewInject(R.id.button)
 	private Button btn_submit;//提交的按钮
 	
+	private Spinner sp_room;//房间
 	public View initView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mRootView=inflater.inflate(R.layout.fragment_paid, null);
@@ -42,14 +49,22 @@ public class PaidFragment extends BaseFragment {
 	}
 
 	private void initCurrentView() {
+		
+		sp_fuwu_item =(Spinner) mRootView.findViewById(R.id.sp_fuwu_item).findViewById(R.id.sp_item);
+		sp_room =(Spinner) mRootView.findViewById(R.id.sp_room_item).findViewById(R.id.sp_item);
+		
 		//获取子服务项信息
-			getSubServices();
+		getSubServices();
 		myConfigInfoAdapter = initMyadapter();
 		
 		if(myConfigInfoAdapter!=null){//设置适配器
 			sp_fuwu_item.setAdapter(myConfigInfoAdapter);
 		}
-		
+		//设置选择地址的适配器
+		BaseAdapter roomAdapter=RoomSelectHelper.getCommonAdapter(mActivity, SharedPfDao.queryStr(UserParamsName.HOUSE_NAME.getName()));
+		if(roomAdapter!=null){
+			sp_room.setAdapter(roomAdapter);
+		}
 	}
 
 	public void initData(Bundle bundle) {
@@ -71,8 +86,10 @@ public class PaidFragment extends BaseFragment {
 	 * 向服务器提交
 	 */
 	private void send2server() {
+		
 		//获取服务项的值
-		String houseid=SharedPfDao.queryStr(UserParamsName.HOUSE_ID.getName());
+		String houseid=getHouseId();
+		
 		String Complainer=SharedPfDao.queryStr(UserParamsName.NICKNAME.getName());
 		String TelNumber=SharedPfDao.queryStr(UserParamsName.UNAME.getName());
 		String Content=et_content.getText().toString().trim();//投诉的内容
@@ -93,5 +110,25 @@ public class PaidFragment extends BaseFragment {
 		}else{
 			SystemTools.showToastInfo(mActivity,"数据有误,提交失败", 3000, 2);
 		}
+	}
+	
+	/**
+	 * 获取房间的id
+	 * @return
+	 */
+	private String getHouseId() {
+		//获取服务项的值
+		String houseid="";
+		String houseid_temp=SharedPfDao.queryStr(UserParamsName.HOUSE_ID.getName());
+		if(JsonTools.isJson(houseid_temp)){//看id
+			//是多房间的话
+			houseid = RoomSelectHelper.getRoomInfo(houseid_temp,
+					sp_room.getSelectedItemPosition(),
+					"jsonHouseid","houseid");
+			LogUtil.w("test1", houseid);
+		}else{
+			houseid = houseid_temp;//房间的id
+		}
+		return houseid;
 	}
 }

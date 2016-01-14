@@ -1,18 +1,27 @@
 package com.fsd.yzcx.ui.fragment.user;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
+
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.dao.db.SharedPfDao;
+import com.fsd.yzcx.dao.user.UserParamsName;
 import com.fsd.yzcx.tools.DataTools;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.actvity.TempActivity;
+import com.fsd.yzcx.ui.adapter.CommonAdapter;
+import com.fsd.yzcx.ui.adapter.ViewHolder;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
+import com.fsd.yzcx.ui.fragment.user.UserInfoFragment.RoomNameInfo.Housename;
 import com.fsd.yzcx.ui.view.UCListItem;
 import com.fsd.yzcx.ui.view.UCListItem.MyOnClickListener;
 import com.fsd.yzcx.ui.view.dialog.UserInfoUpdateDialog;
@@ -27,9 +36,9 @@ public class UserInfoFragment extends BaseFragment {
 	private UCListItem uclt_score;//积分
 	private UCListItem uclt_address;//地址
 	private UCListItem uclt_update_pwd;//修改密码
-	private UCListItem uclt_room;//地址
+	private UCListItem uclt_room;//房间名
+	private Spinner sp_room;//多用户的房间名
 	private UserInfo userInfo;//用户信息
-	private FragmentManager supportFragmentManager;
 
 	class UserInfo{//用户信息
 		public String flag;//标记
@@ -42,6 +51,18 @@ public class UserInfoFragment extends BaseFragment {
 		public int score;//积分
 	}
 
+	
+	/**
+	 * 
+	 * @author zxh
+	 * 用户的房间信息
+	 */
+	class RoomNameInfo{
+		public List<Housename> jsonHousename;
+		class Housename{
+			public String housename;
+		}
+	}
 	public View initView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mRootView = inflater.inflate(R.layout.fragment_userinfo, null);
@@ -53,7 +74,7 @@ public class UserInfoFragment extends BaseFragment {
 
 		//初始化当前的view
 		initCurrentView();
-
+		
 		return mRootView;
 	}
 
@@ -69,7 +90,7 @@ public class UserInfoFragment extends BaseFragment {
 		uclt_address=(UCListItem) mRootView.findViewById(R.id.ucli_address);
 		uclt_room=(UCListItem) mRootView.findViewById(R.id.ucli_room);
 		uclt_update_pwd=(UCListItem) mRootView.findViewById(R.id.ucli_update_pwd);
-
+		sp_room=(Spinner) mRootView.findViewById(R.id.sp_room).findViewById(R.id.sp_item);
 		//判断用户的值并设置
 		String nickname="请设置信息";
 		//String score="没有积分";
@@ -91,18 +112,37 @@ public class UserInfoFragment extends BaseFragment {
 		}
 		String houseid=userInfo.houseid;
 		String housename=userInfo.housename;
-		
+		String p_houseid="";
+		String p_housename="";
 		if(DataTools.isHaveIn("@",houseid)){
-			houseid=DataTools.mStrArr2Json(houseid.split("@"),"jsonHouseid","houseid");
-			housename=DataTools.mStrArr2Json(houseid.split("\\|"),"jsonHousename","housename");
+			p_houseid=DataTools.mStrArr2Json(houseid.split("@"),"jsonHouseid","houseid");
+			p_housename=DataTools.mStrArr2Json(housename.split("\\|"),"jsonHousename","housename");
 		}
-		
-		SharedPfDao.insertData("housename", housename);
-		SharedPfDao.insertData("houseid", houseid);
+
+		SharedPfDao.insertData(UserParamsName.HOUSE_NAME.getName(), p_housename);//存入缓存
+		SharedPfDao.insertData(UserParamsName.HOUSE_ID.getName(), p_houseid);//
 		
 		LogUtil.i("test1",houseid);
 		
-		uclt_room.setTvContent(housename);
+		//如果是多房间的入口
+		if(DataTools.isHaveIn("@",houseid)){
+
+			mRootView.findViewById(R.id.sp_room).setVisibility(View.VISIBLE);//显示
+			RoomNameInfo housename2= new Gson().fromJson(SharedPfDao.queryStr("housename"), RoomNameInfo.class);//解析对象
+			//设置是适配器
+			sp_room.setAdapter(new CommonAdapter<Housename>(mActivity,housename2.jsonHousename,R.layout.adapter_simple) {
+				public void convert(ViewHolder helper, Housename item) {
+					TextView view = helper.getView(R.id.tv_fuwu_title);
+					view.setText(item.housename);
+				}
+			});
+			
+		}else{//不是多房间的入口
+			uclt_room.setVisibility(View.VISIBLE);
+			uclt_room.setTvContent(housename);//房间名
+		}
+		
+		
 		uclt_nickname.setTvContent(nickname);
 		uclt_score.setTvContent(userInfo.score+"分");
 		uclt_address.setTvContent(address);
@@ -113,8 +153,6 @@ public class UserInfoFragment extends BaseFragment {
 	//初始化操作的方法
 	public void initData(Bundle bundle) {
 
-		//获取fragmentmanager
-		supportFragmentManager = mActivity.getSupportFragmentManager();
 		
 		final String uname=SharedPfDao.queryStr("uname");//获取用户的信息
 
@@ -162,7 +200,7 @@ public class UserInfoFragment extends BaseFragment {
 					bundle.putString("uname",uname);//手机号
 
 					dialog.setArguments(bundle);
-					dialog.show(supportFragmentManager, "update");
+					dialog.show(frgManager, "update");
 					dialog.setMyListener(new MyListener() {//对话框的2次回调的方法
 						public void setMyEvent(String content) {			
 

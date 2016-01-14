@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zxh="http://schemas.android.com/apk/res/com.fsd.yzcx"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -10,11 +11,13 @@
         android:layout_width="match_parent"
         android:text="物业报修" />
 
-    <Spinner
+    <include
         android:id="@+id/sp_fuwu_item"
-        style="@style/style_fuwu_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_720height" />
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_720height"
+        android:layout_marginBottom="@dimen/dimen_720maxspacing"
+        android:layout_marginTop="@dimen/dimen_720maxspacing"
+        layout="@layout/sp" />
 
     <EditText
         android:id="@+id/et_fuwu_content"
@@ -23,21 +26,27 @@
         android:background="@android:drawable/editbox_background_normal"
         android:ems="10" />
 
-    <TextView
-        android:id="@+id/tv_photo"
-        style="@style/style_fuwu_tv"
+    <com.fsd.yzcx.ui.view.UCListItem
+        android:id="@+id/ucli_score"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_720height"
-        android:background="@color/blue4"
-        android:text="请选择图片" />
+        android:layout_height="wrap_content"
+        zxh:text="请选择图片" >
+    </com.fsd.yzcx.ui.view.UCListItem>
 
     <TextView
         android:id="@+id/tv_address"
         style="@style/style_fuwu_tv"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_720height"
+        android:layout_height="@dimen/dimen_720sheight"
         android:background="@color/blue4"
         android:text="请确认地址" />
+
+    <include
+        android:id="@+id/sp_room_item"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_720height"
+        android:layout_marginBottom="@dimen/dimen_720maxspacing"
+        layout="@layout/sp" />
 
     <ImageView
         android:id="@+id/iv_content"

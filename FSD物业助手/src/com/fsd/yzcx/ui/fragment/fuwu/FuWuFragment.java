@@ -1,8 +1,10 @@
 package com.fsd.yzcx.ui.fragment.fuwu;
 
 import com.fsd.yzcx.R;
+import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.fuwu.FuwuDao;
 import com.fsd.yzcx.dao.fuwu.FuwuDao.MyFWdaoListener;
+import com.fsd.yzcx.dao.user.UserParamsName;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.actvity.MainActivity;
@@ -53,7 +55,7 @@ public class FuWuFragment extends BaseFragment {
 		ucli_suggestions=(UCListItem) mRootView.findViewById(R.id.ucli_suggestions);//建议
 		ucli_Property = (UCListItem) mRootView.findViewById(R.id.ucli_Property);//物业报修
 		ucli_paid=(UCListItem) mRootView.findViewById(R.id.ucli_paid);//有偿服务
-		
+
 		/**
 		 * 设置图标
 		 */
@@ -69,14 +71,14 @@ public class FuWuFragment extends BaseFragment {
 
 		//分别给操作项添加点击事件
 		setSubItemEvent(ucli_suggestions,2);
-		
+
 		setSubItemEvent(ucli_Property,3);
-		
+
 		setSubItemEvent(ucli_paid,4);
-		
+
 	}
 
-	
+
 	/***
 	 * 跳转的方法
 	 * @param ucListItem 跳转项目
@@ -85,26 +87,31 @@ public class FuWuFragment extends BaseFragment {
 	private void setSubItemEvent(UCListItem ucListItem, final int flag) {
 		ucListItem.setOnClickListener(new MyOnClickListener() {
 			public void onClick(View v) {
-				//跳转到投诉fragment
-				
-				//请求网络获取子服务项信息
-				FuwuDao fuwuDao = new FuwuDao(mActivity);
-				
-				//获取数据的接口
-				fuwuDao.fetchSubService(mActivity.getResources().getStringArray(R.array.pid)[flag-2],
-						
-						"subservice", new MyFWdaoListener() {
-							public void fetchInfo(String response) {
-								LogUtil.i("test", response);
-								Intent intent = new Intent(mActivity,TempActivity.class);
-								intent.putExtra("flag", flag);
-								intent.putExtra("config_info", response);//返回的2级服务项的数据
-								mActivity.startActivity(intent);
-							}
-						});
-				
+
+				//判断用户是否登录
+				if(SharedPfDao.queryStr(UserParamsName.UNAME.getName())!=null){
+
+					//跳转到投诉fragment
+
+					//请求网络获取子服务项信息
+					FuwuDao fuwuDao = new FuwuDao(mActivity);
+
+					//获取数据的接口
+					fuwuDao.fetchSubService(mActivity.getResources().getStringArray(R.array.pid)[flag-2],
+							"subservice", new MyFWdaoListener() {
+						public void fetchInfo(String response) {
+							LogUtil.i("test", response);
+							Intent intent = new Intent(mActivity,TempActivity.class);
+							intent.putExtra("flag", flag);
+							intent.putExtra("config_info", response);//返回的2级服务项的数据
+							mActivity.startActivity(intent);
+						}
+					});
+				}else{
+					SystemTools.showToastInfo(mActivity, "请登录后再使用",3000, 2);
+				}
 			}
 		});
 	}
-	
+
 }

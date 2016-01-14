@@ -28,8 +28,17 @@
         android:id="@+id/ucli_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        zxh:text="住址" >
+        zxh:text="住址" 
+        android:visibility="gone">
     </com.fsd.yzcx.ui.view.UCListItem>
+
+    <include
+        android:id="@+id/sp_room"
+        android:layout_marginTop="@dimen/dimen_720maxspacing"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_720height"
+        layout="@layout/sp" 
+        android:visibility="gone"/>
 
     <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_score"

@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zxh="http://schemas.android.com/apk/res/com.fsd.yzcx"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-   
+
     <TextView
         android:id="@+id/tv_title"
         style="@style/styleTtv_title"
         android:layout_width="match_parent"
         android:text="有偿服务" />
 
-    <Spinner
+    <include
         android:id="@+id/sp_fuwu_item"
-        style="@style/style_fuwu_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_720height" />
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_720height"
+        android:layout_marginBottom="@dimen/dimen_720maxspacing"
+        android:layout_marginTop="@dimen/dimen_720maxspacing"
+        layout="@layout/sp" />
 
     <EditText
         android:id="@+id/et_fuwu_content"
@@ -23,22 +26,38 @@
         android:background="@android:drawable/editbox_background_normal"
         android:ems="10" />
 
-     <TextView
-        android:id="@+id/tv_photo"
+    <TextView
+        android:id="@+id/tv_address"
         style="@style/style_fuwu_tv"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_720sheight"
         android:background="@color/blue4"
+        android:text="请确认地址" />
+
+    <include
+        android:id="@+id/sp_room_item"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/dimen_720height"
-        android:text="请选择图片" />
-    <ImageView 
+        android:layout_marginBottom="@dimen/dimen_720maxspacing"
+        layout="@layout/sp" />
+
+    <com.fsd.yzcx.ui.view.UCListItem
+        android:id="@+id/ucli_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        zxh:text="请选择图片" >
+    </com.fsd.yzcx.ui.view.UCListItem>
+
+    <ImageView
         android:id="@+id/iv_content"
         android:layout_width="96dp"
-        android:layout_height="96dp"
-        />
+        android:layout_height="96dp" />
+
     <Button
         android:id="@+id/button"
         style="@style/style_btn_fuwu"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720height"
         android:text="确认" />
+
 </LinearLayout>
