@@ -1,14 +1,9 @@
 package com.fsd.yzcx.ui.fragment.user;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +22,6 @@ public class AlertPwdFragment extends BaseFragment {
 	private TextView tv_old_tip;
 	private TextView tv_new_tip;
 	private TextView tv_new_tip1;
-
 	private EditText et_old_pwd;
 	private EditText et_new_pwd;
 	private EditText et_new_pwd1;
@@ -37,6 +31,7 @@ public class AlertPwdFragment extends BaseFragment {
 			Bundle savedInstanceState) {
 		mRootView = inflater.inflate(R.layout.update_pwd, null);
 
+		//初始化控件信息
 		tv_old_tip =initCurrentTvView("原密码:",R.id.old_pwd);
 		tv_new_tip=initCurrentTvView("新密码:",R.id.new_pwd);
 		tv_new_tip1=initCurrentTvView("确认密码:",R.id.new_pwd1);
@@ -44,11 +39,13 @@ public class AlertPwdFragment extends BaseFragment {
 		et_old_pwd=initCurrentEtView(R.id.old_pwd);
 		et_new_pwd=initCurrentEtView(R.id.new_pwd);
 		et_new_pwd1=initCurrentEtView(R.id.new_pwd1);
+		
 		btn_save = (Button) mRootView.findViewById(R.id.btn_save);
+		
 		return mRootView;
 	}
 
-	class Info{
+	class Info{//服务器返回的结果信息
 		public int flag;
 		public String info;
 	}
@@ -69,9 +66,10 @@ public class AlertPwdFragment extends BaseFragment {
 	}
 
 
+	/**
+	 *初始化事件的信息
+	 */
 	public void initData(Bundle bundle) {
-
-
 
 		btn_save.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -101,7 +99,7 @@ public class AlertPwdFragment extends BaseFragment {
 							}
 						});
 					}else{
-						SystemTools.showToastInfo(mActivity, "密码填写一致", 3000, 2);
+						SystemTools.showToastInfo(mActivity, "两次密码填写不一致", 3000, 2);
 					}
 				}
 

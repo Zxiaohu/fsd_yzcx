@@ -12,12 +12,18 @@
         android:layout_width="match_parent"
         android:text="投诉建议" />
 
+    <TextView
+        style="@style/style_fuwu_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_720sheight"
+        android:background="@color/blue4"
+        android:text="请选择服务项" />
+
     <include
         android:id="@+id/sp_fuwu_item"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dimen_720height"
         android:layout_marginBottom="@dimen/dimen_720maxspacing"
-        android:layout_marginTop="@dimen/dimen_720maxspacing"
         layout="@layout/sp" />
 
     <EditText
@@ -25,7 +31,22 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720maxheight"
         android:background="@android:drawable/editbox_background_normal"
-        android:ems="10" />
+        android:ems="10"
+        android:hint="请输入您要投诉的内容" />
+
+    <TextView
+        style="@style/style_fuwu_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_720sheight"
+        android:background="@color/blue4"
+        android:text="请确认地址" />
+
+    <include
+        android:id="@+id/sp_room_item"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_720height"
+        android:layout_marginBottom="@dimen/dimen_720maxspacing"
+        layout="@layout/sp" />
 
     <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_photo"

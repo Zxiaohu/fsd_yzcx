@@ -77,9 +77,9 @@
     <style name="style_fuwu_tv" parent="android:Widget.Holo.Light.TextView">
         <item name="android:background">@color/white</item>
         <item name="android:gravity">center|left</item>
-        <item name="android:layout_marginTop">@dimen/dimen_720minspacing</item>
+        <item name="android:layout_marginTop">@dimen/dimen_720maxspacing</item>
         <item name="android:paddingBottom">@dimen/dimen_720minspacing</item>
-        <item name="android:paddingLeft">@dimen/dimen_720largespacing</item>
+        <item name="android:paddingLeft">@dimen/dimen_720maxspacing</item>
         <item name="android:paddingTop">@dimen/dimen_720minspacing</item>
         <item name="android:textSize">@dimen/small</item>
     </style>

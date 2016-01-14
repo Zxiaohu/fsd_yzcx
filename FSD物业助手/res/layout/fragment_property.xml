@@ -11,30 +11,30 @@
         android:layout_width="match_parent"
         android:text="物业报修" />
 
+    <TextView
+        android:id="@+id/tv_address"
+        style="@style/style_fuwu_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_720sheight"
+        android:background="@color/blue4"
+        android:text="请选择服务项" />
+
     <include
         android:id="@+id/sp_fuwu_item"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dimen_720height"
-        android:layout_marginBottom="@dimen/dimen_720maxspacing"
-        android:layout_marginTop="@dimen/dimen_720maxspacing"
         layout="@layout/sp" />
 
     <EditText
         android:id="@+id/et_fuwu_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720maxheight"
+        android:layout_marginTop="@dimen/dimen_720maxspacing"
         android:background="@android:drawable/editbox_background_normal"
-        android:ems="10" />
-
-    <com.fsd.yzcx.ui.view.UCListItem
-        android:id="@+id/ucli_score"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        zxh:text="请选择图片" >
-    </com.fsd.yzcx.ui.view.UCListItem>
+        android:ems="10"
+        android:hint="请输入报修内容" />
 
     <TextView
-        android:id="@+id/tv_address"
         style="@style/style_fuwu_tv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_720sheight"
@@ -47,6 +47,13 @@
         android:layout_height="@dimen/dimen_720height"
         android:layout_marginBottom="@dimen/dimen_720maxspacing"
         layout="@layout/sp" />
+
+    <com.fsd.yzcx.ui.view.UCListItem
+        android:id="@+id/ucli_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        zxh:text="图片" >
+    </com.fsd.yzcx.ui.view.UCListItem>
 
     <ImageView
         android:id="@+id/iv_content"

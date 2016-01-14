@@ -16,7 +16,7 @@
         android:id="@+id/et_old_pwd"
         android:layout_width="0dp"
         android:ems="15"
-        android:phoneNumber="true"
+        android:password="true"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/dimen_720maxspacing"
         android:layout_weight="0.618" />
