@@ -2,7 +2,9 @@ package com.fsd.yzcx.tools.http;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
+import android.view.View;
 
+import com.fsd.yzcx.R;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.http.impl.MyHttpListener;
 import com.lidroid.xutils.http.RequestParams;
@@ -16,6 +18,7 @@ public class DialogHttp extends BaseHttpTools{
 		super(url, params, tag, httpListener);
 		//this.context=context;
 		this.dialog=new ProgressDialog(context);
+		dialog.setView(View.inflate(context, R.layout.http_progress, null));
 	}
 
 	protected void onHttpRun() {

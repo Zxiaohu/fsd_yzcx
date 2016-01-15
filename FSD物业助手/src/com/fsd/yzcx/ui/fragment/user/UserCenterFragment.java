@@ -10,6 +10,7 @@ import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.actvity.LoginActivity;
 import com.fsd.yzcx.ui.actvity.MainActivity;
+import com.fsd.yzcx.ui.actvity.MapActivity;
 import com.fsd.yzcx.ui.actvity.TempActivity;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
 import com.fsd.yzcx.ui.view.dialog.TipDialog;
@@ -53,6 +54,9 @@ public class UserCenterFragment extends BaseFragment {
 	@ViewInject(R.id.tv_userinfo)//个人信息的
 	private TextView tv_userinfo;
 
+	@ViewInject(R.id.tv_fuwu_details)//个人信息的
+	private TextView tv_fuwu_details;
+
 
 
 	@Override
@@ -90,6 +94,20 @@ public class UserCenterFragment extends BaseFragment {
 		//userHeadImgDao();
 		//个人信息设置
 		setUserinfo();
+		
+		//服务详情设置
+		setFuwudetails();
+	}
+
+	private void setFuwudetails() {
+		
+		tv_fuwu_details.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+			
+				mActivity.startActivity(new Intent(mActivity,MapActivity.class));
+			}
+		});
+		
 	}
 
 	/**

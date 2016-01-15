@@ -16,6 +16,8 @@ import com.fsd.yzcx.dao.user.UserDao.UpdateUserListener;
 import com.fsd.yzcx.dao.user.UserParamsName;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
+import com.fsd.yzcx.ui.view.dialog.TipDialog;
+import com.fsd.yzcx.ui.view.dialog.TipDialog.callBackOk;
 import com.google.gson.Gson;
 
 public class AlertPwdFragment extends BaseFragment {
@@ -39,9 +41,9 @@ public class AlertPwdFragment extends BaseFragment {
 		et_old_pwd=initCurrentEtView(R.id.old_pwd);
 		et_new_pwd=initCurrentEtView(R.id.new_pwd);
 		et_new_pwd1=initCurrentEtView(R.id.new_pwd1);
-		
+
 		btn_save = (Button) mRootView.findViewById(R.id.btn_save);
-		
+
 		return mRootView;
 	}
 
@@ -74,30 +76,42 @@ public class AlertPwdFragment extends BaseFragment {
 		btn_save.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				//判断用户输入密码 的完整性
-				String oldpwd = et_old_pwd.getText().toString().trim();
+				final String oldpwd = et_old_pwd.getText().toString().trim();
 				String newpwd = et_new_pwd.getText().toString().trim();
-				String newpwd1 = et_new_pwd1.getText().toString().trim();
+				final String newpwd1 = et_new_pwd1.getText().toString().trim();
 
 				if(TextUtils.isEmpty(oldpwd)||TextUtils.isEmpty(newpwd)||TextUtils.isEmpty(newpwd1)){
 					SystemTools.showToastInfo(mActivity, "请填写完整的信息", 3000, 2);
 				}else{
 					if(newpwd.equals(newpwd1)){
-						
-						UserDao userDao = new UserDao(mActivity);
-						userDao.alterPwd(SharedPfDao.queryStr(UserParamsName.UNAME.getName()), 
-								oldpwd, 
-								newpwd1, new UpdateUserListener() {
-							public void updateUserInfo(String info) {
-								Info info1= new Gson().fromJson(info, Info.class);
-								if(info1.flag==1){
-									SystemTools.showToastInfo(mActivity, info1.info, 3000, 1);
-									SharedPfDao.delAll();
-									mActivity.finish();
-								}else{
-									SystemTools.showToastInfo(mActivity, info1.info, 3000, 2);
-								}
+						//弹对话框
+						final TipDialog dialog = new TipDialog();
+						dialog.setCallBackOK(new callBackOk() {
+							public void onOkClick() {
+								//服务器修改
+								UserDao userDao = new UserDao(mActivity);
+								userDao.alterPwd(SharedPfDao.queryStr(UserParamsName.UNAME.getName()), 
+										oldpwd, 
+										newpwd1, new UpdateUserListener() {
+									public void updateUserInfo(String info) {
+										Info info1= new Gson().fromJson(info, Info.class);
+										if(info1.flag==1){
+											SystemTools.showToastInfo(mActivity, info1.info, 3000, 1);
+											
+											//清空之前所有的数据
+											SharedPfDao.delAll();
+											
+											dialog.dismiss();
+											mActivity.finish();
+										}else{
+											SystemTools.showToastInfo(mActivity, info1.info, 3000, 2);
+											dialog.dismiss();
+										}
+									}
+								});
 							}
-						});
+						}, "您确定要提交修改吗？提交后成功后您将需要重新登录");
+						dialog.show(frgManager, "alertpwd_dialog");
 					}else{
 						SystemTools.showToastInfo(mActivity, "两次密码填写不一致", 3000, 2);
 					}

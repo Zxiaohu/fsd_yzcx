@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:zxh="http://schemas.android.com/apk/res/com.fsd.yzcx" 
+    xmlns:zxh="http://schemas.android.com/apk/res/com.fsd.yzcx"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -13,24 +13,22 @@
     <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_suggestions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        zxh:text="投诉建议"
-        >
+        android:layout_height="wrap_content"
+        zxh:text="投诉建议" >
     </com.fsd.yzcx.ui.view.UCListItem>
+
     <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_Property"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        zxh:text="物业报修"
-        >
+        android:layout_height="wrap_content"
+        zxh:text="物业报修" >
     </com.fsd.yzcx.ui.view.UCListItem>
-    
+
     <com.fsd.yzcx.ui.view.UCListItem
         android:id="@+id/ucli_paid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        zxh:text="有偿服务"
-         >
+        zxh:text="有偿服务" >
     </com.fsd.yzcx.ui.view.UCListItem>
 
 </LinearLayout>

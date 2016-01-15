@@ -8,14 +8,12 @@ import com.fsd.yzcx.ui.fragment.user.UserCenterFragment;
 import com.fsd.yzcx.ui.view.MyTabItem;
 import com.fsd.yzcx.ui.view.dialog.TipDialog;
 import com.fsd.yzcx.ui.view.dialog.TipDialog.callBackOk;
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.view.KeyEvent;
 import android.widget.TabHost.OnTabChangeListener;
-import android.widget.TabHost.TabSpec;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity{
 	public FragmentTabHost tabHost;
 	private final String TAG_FUWU="fuwu";
 	private final String TAG_USER_CENTER="user_center";
