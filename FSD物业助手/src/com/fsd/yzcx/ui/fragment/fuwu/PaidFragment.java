@@ -14,7 +14,7 @@ import com.fsd.yzcx.R;
 import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.fuwu.FuwuDao;
 import com.fsd.yzcx.dao.fuwu.FuwuDao.MyFWdaoListener;
-import com.fsd.yzcx.dao.user.UserParamsName;
+import com.fsd.yzcx.dao.user.Param;
 import com.fsd.yzcx.tools.JsonTools;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
@@ -61,7 +61,7 @@ public class PaidFragment extends BaseFragment {
 			sp_fuwu_item.setAdapter(myConfigInfoAdapter);
 		}
 		//设置选择地址的适配器
-		BaseAdapter roomAdapter=RoomSelectHelper.getCommonAdapter(mActivity, SharedPfDao.queryStr(UserParamsName.HOUSE_NAME.getName()));
+		BaseAdapter roomAdapter=RoomSelectHelper.getCommonAdapter(mActivity, SharedPfDao.queryStr(Param.HOUSE_NAME.getName()));
 		if(roomAdapter!=null){
 			sp_room.setAdapter(roomAdapter);
 		}
@@ -90,8 +90,8 @@ public class PaidFragment extends BaseFragment {
 		//获取服务项的值
 		String houseid=getHouseId();
 		
-		String Complainer=SharedPfDao.queryStr(UserParamsName.NICKNAME.getName());
-		String TelNumber=SharedPfDao.queryStr(UserParamsName.UNAME.getName());
+		String Complainer=SharedPfDao.queryStr(Param.NICKNAME.getName());
+		String TelNumber=SharedPfDao.queryStr(Param.UNAME.getName());
 		String Content=et_content.getText().toString().trim();//投诉的内容
 		String ComplainTypeID="service02";//主项
 		
@@ -119,7 +119,7 @@ public class PaidFragment extends BaseFragment {
 	private String getHouseId() {
 		//获取服务项的值
 		String houseid="";
-		String houseid_temp=SharedPfDao.queryStr(UserParamsName.HOUSE_ID.getName());
+		String houseid_temp=SharedPfDao.queryStr(Param.HOUSE_ID.getName());
 		if(JsonTools.isJson(houseid_temp)){//看id
 			//是多房间的话
 			houseid = RoomSelectHelper.getRoomInfo(houseid_temp,

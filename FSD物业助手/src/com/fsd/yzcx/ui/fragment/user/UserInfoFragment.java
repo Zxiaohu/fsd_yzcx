@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.dao.db.SharedPfDao;
-import com.fsd.yzcx.dao.user.UserParamsName;
+import com.fsd.yzcx.dao.user.Param;
 import com.fsd.yzcx.tools.DataTools;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
@@ -119,8 +119,8 @@ public class UserInfoFragment extends BaseFragment {
 			p_housename=DataTools.mStrArr2Json(housename.split("\\|"),"jsonHousename","housename");
 		}
 
-		SharedPfDao.insertData(UserParamsName.HOUSE_NAME.getName(), p_housename);//存入缓存
-		SharedPfDao.insertData(UserParamsName.HOUSE_ID.getName(), p_houseid);//
+		SharedPfDao.insertData(Param.HOUSE_NAME.getName(), p_housename);//存入缓存
+		SharedPfDao.insertData(Param.HOUSE_ID.getName(), p_houseid);//
 		
 		LogUtil.i("test1",houseid);
 		
@@ -177,10 +177,7 @@ public class UserInfoFragment extends BaseFragment {
 	private void setAlertPwdEvent() {
 		uclt_update_pwd.setOnClickListener(new MyOnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(mActivity,TempActivity.class);
-				intent.putExtra("flag",5);
-				//跳转到修改密码的页面
-				mActivity.startActivity(intent);
+				TempActivity.openFragment(mActivity, 5, null);
 			}
 		});
 	}

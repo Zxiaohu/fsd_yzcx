@@ -70,7 +70,7 @@ public abstract class BaseFragment extends Fragment {
 	 * 获取子服务项信息
 	 */
 	protected void getSubServices() {
-		String config_info = this.getArguments().getString("config_info");//获取服务配置信息
+		String config_info = this.getArguments().getString("data");//获取服务配置信息
 		
 		LogUtil.v("test_argment", config_info);
 		

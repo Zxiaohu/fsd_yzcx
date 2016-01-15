@@ -13,7 +13,7 @@ import com.fsd.yzcx.R;
 import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.user.UserDao;
 import com.fsd.yzcx.dao.user.UserDao.UpdateUserListener;
-import com.fsd.yzcx.dao.user.UserParamsName;
+import com.fsd.yzcx.dao.user.Param;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
 import com.fsd.yzcx.ui.view.dialog.TipDialog;
@@ -90,7 +90,7 @@ public class AlertPwdFragment extends BaseFragment {
 							public void onOkClick() {
 								//服务器修改
 								UserDao userDao = new UserDao(mActivity);
-								userDao.alterPwd(SharedPfDao.queryStr(UserParamsName.UNAME.getName()), 
+								userDao.alterPwd(SharedPfDao.queryStr(Param.UNAME.getName()), 
 										oldpwd, 
 										newpwd1, new UpdateUserListener() {
 									public void updateUserInfo(String info) {

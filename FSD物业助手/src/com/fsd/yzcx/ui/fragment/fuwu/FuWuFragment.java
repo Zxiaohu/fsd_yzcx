@@ -4,7 +4,7 @@ import com.fsd.yzcx.R;
 import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.fuwu.FuwuDao;
 import com.fsd.yzcx.dao.fuwu.FuwuDao.MyFWdaoListener;
-import com.fsd.yzcx.dao.user.UserParamsName;
+import com.fsd.yzcx.dao.user.Param;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.actvity.MainActivity;
@@ -89,7 +89,7 @@ public class FuWuFragment extends BaseFragment {
 			public void onClick(View v) {
 
 				//判断用户是否登录
-				if(SharedPfDao.queryStr(UserParamsName.UNAME.getName())!=null){
+				if(SharedPfDao.queryStr(Param.UNAME.getName())!=null){
 
 					//跳转到投诉fragment
 
@@ -101,10 +101,8 @@ public class FuWuFragment extends BaseFragment {
 							"subservice", new MyFWdaoListener() {
 						public void fetchInfo(String response) {
 							LogUtil.i("test", response);
-							Intent intent = new Intent(mActivity,TempActivity.class);
-							intent.putExtra("flag", flag);
-							intent.putExtra("config_info", response);//返回的2级服务项的数据
-							mActivity.startActivity(intent);
+							//跳转响应的服务项页面
+							TempActivity.openFragment(mActivity, flag, response);
 						}
 					});
 				}else{

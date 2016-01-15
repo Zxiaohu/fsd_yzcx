@@ -1,6 +1,6 @@
 package com.fsd.yzcx.dao.user;
 
-public enum UserParamsName {
+public enum Param {
 	/**
 	 * score 积分 
 	photo 图像 
@@ -17,10 +17,10 @@ public enum UserParamsName {
 	HOUSE_ID("houseid"),
 	HOUSE_NAME("housename"),
 	PASSWORD("password"),
-	OLDPASSWORD("oldpassword");
-	
+	OLDPASSWORD("oldpassword"),
+	DETAILS("details");
 	private String name;
-	private UserParamsName(String name){
+	private Param(String name){
 		this.name=name;
 	}
 	public String getName(){

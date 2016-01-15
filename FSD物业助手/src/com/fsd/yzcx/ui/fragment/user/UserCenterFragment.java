@@ -1,8 +1,12 @@
 package com.fsd.yzcx.ui.fragment.user;
+import java.util.List;
+
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.dao.db.SharedPfDao;
+import com.fsd.yzcx.dao.order.OrderDao;
+import com.fsd.yzcx.dao.order.OrderDao.FetchDetailsListener;
 import com.fsd.yzcx.dao.user.UserDao;
-import com.fsd.yzcx.dao.user.UserParamsName;
+import com.fsd.yzcx.dao.user.Param;
 import com.fsd.yzcx.dao.user.UserDao.UserDaoListener;
 import com.fsd.yzcx.dao.user.UserInfo;
 import com.fsd.yzcx.tools.DataTools;
@@ -16,6 +20,7 @@ import com.fsd.yzcx.ui.fragment.base.BaseFragment;
 import com.fsd.yzcx.ui.view.dialog.TipDialog;
 import com.fsd.yzcx.ui.view.dialog.TipDialog.callBackOk;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -54,9 +59,8 @@ public class UserCenterFragment extends BaseFragment {
 	@ViewInject(R.id.tv_userinfo)//个人信息的
 	private TextView tv_userinfo;
 
-	@ViewInject(R.id.tv_fuwu_details)//个人信息的
+	@ViewInject(R.id.tv_fuwu_details)//订单详情页的
 	private TextView tv_fuwu_details;
-
 
 
 	@Override
@@ -94,20 +98,40 @@ public class UserCenterFragment extends BaseFragment {
 		//userHeadImgDao();
 		//个人信息设置
 		setUserinfo();
-		
+
 		//服务详情设置
 		setFuwudetails();
 	}
 
 	private void setFuwudetails() {
-		
+
 		tv_fuwu_details.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-			
-				mActivity.startActivity(new Intent(mActivity,MapActivity.class));
+
+				//判断是否登录
+				if(SharedPfDao.isHave(Param.UNAME.getName())){
+					//
+					//					if(!SharedPfDao.isHave(Param.DETAILS.getName())){
+					//						//从网络获取数据
+					//						
+					//					}else{
+					//						TempActivity.openFragment(mActivity, 6, SharedPfDao.queryStr(Param.DETAILS.getName()));
+					//					}
+					OrderDao dao = new OrderDao(mActivity);//订单请求对象
+					dao.fetchDetails(SharedPfDao.queryStr(Param.UNAME.getName()),new FetchDetailsListener() {
+						public void getDetails(String response) {
+							LogUtil.e("test1", response);
+							//SharedPfDao.insertData(Param.DETAILS.getName(), response);
+							//启动activity
+							TempActivity.openFragment(mActivity, 6, response);
+						}
+					});
+				}else{
+					SystemTools.showToastInfo(mActivity, "请登录", 3000, 2);
+				}
 			}
 		});
-		
+
 	}
 
 	/**
@@ -117,7 +141,7 @@ public class UserCenterFragment extends BaseFragment {
 		tv_userinfo.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				//先判断是否登录
-				final String uname=SharedPfDao.queryStr(UserParamsName.UNAME.getName());
+				final String uname=SharedPfDao.queryStr(Param.UNAME.getName());
 				if(uname!=null){
 					//跳转页面
 					UserDao userDao = new UserDao(mActivity);
@@ -125,10 +149,7 @@ public class UserCenterFragment extends BaseFragment {
 					userDao.fetchUserInfo(uname, new UserDaoListener() {
 						public void fetchUserInfo(String jsonUserInfo) {	
 							LogUtil.d("test", jsonUserInfo);
-							Intent intent = new Intent(mActivity,TempActivity.class);
-							intent.putExtra("flag", 1);
-							intent.putExtra("userinfo",jsonUserInfo);
-							mActivity.startActivity(intent);
+							TempActivity.openFragment(mActivity, 1, jsonUserInfo);
 						}
 					});	
 				}else{
@@ -189,6 +210,7 @@ public class UserCenterFragment extends BaseFragment {
 			///没有登录跳转到登录
 			tv_username.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
+					//登录
 					mActivity.startActivity(new Intent(mActivity,LoginActivity.class));
 				}
 			});
@@ -214,11 +236,11 @@ public class UserCenterFragment extends BaseFragment {
 			if(uname.equals("")){
 				tv_fools.setText("请完善个人信息");
 			}
-			
-			
+
+
 			addUserInfo2pf(uname);//添加用户信息到本地
 
-			
+
 			isLogin=true;
 		}else{
 			tv_username.setText("请点击登录");
@@ -242,8 +264,8 @@ public class UserCenterFragment extends BaseFragment {
 			public void fetchUserInfo(String jsonUserInfo) {
 				//解析用户的信息数据
 				UserInfo userInfo=new Gson().fromJson(jsonUserInfo, UserInfo.class);
-				
-				
+
+
 				//判断是否是多房间的用户,
 				/**
 				 * 如果是多用户就用将该信息转换为json格式的数据存起来呢
@@ -257,10 +279,10 @@ public class UserCenterFragment extends BaseFragment {
 				//不用解析，直接存储
 				SharedPfDao.insertData(
 						new String[]{
-								UserParamsName.NICKNAME.getName(),
-								UserParamsName.ADDRESS.getName(),
-								UserParamsName.HOUSE_ID.getName(),
-								UserParamsName.HOUSE_NAME.getName()},
+								Param.NICKNAME.getName(),
+								Param.ADDRESS.getName(),
+								Param.HOUSE_ID.getName(),
+								Param.HOUSE_NAME.getName()},
 								new String[]{
 								userInfo.getNickname(),
 								userInfo.getAddress(),

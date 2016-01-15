@@ -58,15 +58,15 @@ public class UserDao {
 		RequestParams params = new RequestParams();
 		
 		//电话号码
-		params.addBodyParameter(UserParamsName.UNAME.getName(),uname);
+		params.addBodyParameter(Param.UNAME.getName(),uname);
 
 		//修改地址
-		if(tag.equals(UserParamsName.ADDRESS.getName())){
-			params.addBodyParameter(UserParamsName.ADDRESS.getName(),content);
+		if(tag.equals(Param.ADDRESS.getName())){
+			params.addBodyParameter(Param.ADDRESS.getName(),content);
 		}
 		//修改昵称
-		if(tag.equals(UserParamsName.NICKNAME.getName())){
-			params.addBodyParameter(UserParamsName.NICKNAME.getName(),content);
+		if(tag.equals(Param.NICKNAME.getName())){
+			params.addBodyParameter(Param.NICKNAME.getName(),content);
 		}
 	
 		DialogHttp http = new DialogHttp(context,UPDATE_USERINFO, params, "用户信息", new MyHttpListener() {
@@ -91,9 +91,9 @@ public class UserDao {
 	public  void alterPwd(String uname,String oldpwd,String newpwd,final UpdateUserListener listener){
 		
 		RequestParams params = new RequestParams();
-		params.addBodyParameter(UserParamsName.UNAME.getName(),uname);//手机号
-		params.addBodyParameter(UserParamsName.OLDPASSWORD.getName(),oldpwd);//旧密码
-		params.addBodyParameter(UserParamsName.PASSWORD.getName(),newpwd);//新密码
+		params.addBodyParameter(Param.UNAME.getName(),uname);//手机号
+		params.addBodyParameter(Param.OLDPASSWORD.getName(),oldpwd);//旧密码
+		params.addBodyParameter(Param.PASSWORD.getName(),newpwd);//新密码
 		DialogHttp http = new DialogHttp(context,UPDATE_USERINFO, params , "用户信息", new MyHttpListener() {
 			public void fetchResponse(String response) {
 				if(JsonTools.isJson(response)){

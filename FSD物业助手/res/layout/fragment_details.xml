@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/huise1"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/styleTtv_title"
+        android:layout_width="match_parent"
+        android:text="订单详情" />
+
+    <com.fsd.yzcx.ui.view.MyListView
+        android:id="@+id/lv"
+        android:fadingEdge="none"
+        android:listSelector="@null"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="@dimen/dimen_720maxspacing"
+        android:divider="@color/huise1"
+        android:dividerHeight="@dimen/dimen_720maxspacing" />
+</LinearLayout>

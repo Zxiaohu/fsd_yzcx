@@ -25,6 +25,19 @@ public  class SharedPfDao {
 	}
 
 	/**
+	 * 
+	 * @param uname 检测该值是否是否在缓存文件中
+	 * @return
+	 */
+	public static boolean isHave(String key){
+		
+		if(null!=M_PREFERENCES.getString(key, null)){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * 查看所有数据
 	 * @return
 	 */

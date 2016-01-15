@@ -18,7 +18,7 @@ import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.login.LoginDao;
 import com.fsd.yzcx.dao.login.LoginDao.myInterfaceCheckNormalLogin;
 import com.fsd.yzcx.dao.login.LoginUserInfo;
-import com.fsd.yzcx.dao.user.UserParamsName;
+import com.fsd.yzcx.dao.user.Param;
 import com.fsd.yzcx.tools.ForEmptyTool;
 import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
@@ -59,7 +59,7 @@ public class NormalLoginPager extends BasePager {
 		LogUtil.i(tag, "第一页数据加载中");
 		//设置初始值
 		String uname=null;
-		if((uname=SharedPfDao.queryStr(UserParamsName.UNAME.getName()))!=null){
+		if((uname=SharedPfDao.queryStr(Param.UNAME.getName()))!=null){
 			et_name.setText(uname);
 		}
 		//跳转到房号登入的接口
