@@ -60,6 +60,10 @@
             android:launchMode="singleTop" >
         </activity>
         <activity
+            android:name="com.fsd.yzcx.ui.actvity.DetailsActivity"
+            android:launchMode="singleTop" >
+        </activity>
+        <activity
             android:name="com.fsd.yzcx.ui.actvity.MainActivity"
             android:launchMode="singleTop" >
         </activity>

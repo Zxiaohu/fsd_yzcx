@@ -23,7 +23,7 @@ public abstract class BaseFragment extends Fragment {
 
 	public View mRootView;
 	public FragmentActivity mActivity;
-	
+	//public String data;
 	public FragmentManager frgManager;
 	protected CommonAdapter<ConfigInfo> myConfigInfoAdapter;//万能的适配器
 	public List<ConfigInfo> configInfos;//返回的服务项的数据
@@ -36,8 +36,8 @@ public abstract class BaseFragment extends Fragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mRootView=initView(inflater,container,savedInstanceState);
 		
+		mRootView=initView(inflater,container,savedInstanceState);
 		return mRootView;
 	}
 

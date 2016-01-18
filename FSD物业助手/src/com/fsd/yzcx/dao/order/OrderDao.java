@@ -13,7 +13,13 @@ import android.content.Context;
  *
  */
 public class OrderDao {
-	private String PAIGONGLIST=HttpTools.URL_YZ+"paigonglist.asp"+HttpTools.ROOT;
+	
+	private String PAIGONG_LIST=HttpTools.URL_YZ+"paigonglist.asp"+HttpTools.ROOT;//派工列表
+	
+	//派工进度
+	private String PAIGONG_RATE=HttpTools.URL+"paigongrate.asp"+HttpTools.ROOT;
+	
+	
 	private Context context;
 	public OrderDao(Context context) {
 	this.context=context;
@@ -28,19 +34,31 @@ public class OrderDao {
 		content 派工内容 
 		ComplainDate 派工时间 
 	 */
-	public void fetchDetails(String uname,final FetchDetailsListener listener){
+	public void fetchDetails(String uname,final FetchListener listener){
 			RequestParams params = new RequestParams();
 			params.addBodyParameter("uname",uname);
-			DialogHttp dialogHttp = new DialogHttp(context, PAIGONGLIST, params, "请求服务详情列表", new MyHttpListener() {
+			DialogHttp dialogHttp = new DialogHttp(context, PAIGONG_LIST, params, "请求服务详情列表", new MyHttpListener() {
 				public void fetchResponse(String response) {
-					LogUtil.d("test1", response);
-					
 					listener.getDetails(response);
 				}
 			});
 			dialogHttp.send();
 	}
-	public interface FetchDetailsListener{
-		public void getDetails(String response);
+	/**
+	 * paigongrate.asp  派工进度
+
+	 */
+	public void fetchRate(String complainid,final FetchListener listener){
+		
+		RequestParams params = new RequestParams();
+		params.addBodyParameter("complainid",complainid);
+		DialogHttp dialogHttp = new DialogHttp(context, PAIGONG_RATE, params, "请求服务进度", new MyHttpListener() {
+			public void fetchResponse(String response) {
+				LogUtil.d("test1", response);
+				listener.getDetails(response);
+			}
+		});
+		dialogHttp.send();
+		
 	}
 }

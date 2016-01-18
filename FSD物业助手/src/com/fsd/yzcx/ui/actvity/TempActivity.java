@@ -14,7 +14,7 @@ import com.fsd.yzcx.ui.fragment.base.BaseFragment;
 import com.fsd.yzcx.ui.fragment.fuwu.PaidFragment;
 import com.fsd.yzcx.ui.fragment.fuwu.PropertyFragment;
 import com.fsd.yzcx.ui.fragment.fuwu.SuggestionsFragment;
-import com.fsd.yzcx.ui.fragment.order.DetailsFragment;
+import com.fsd.yzcx.ui.fragment.order.DetailsListsFragment;
 import com.fsd.yzcx.ui.fragment.user.AlertPwdFragment;
 import com.fsd.yzcx.ui.fragment.user.UserInfoFragment;
 
@@ -74,7 +74,7 @@ public class TempActivity extends BaseActivity {
 			setFragmentAndData(bundle,new AlertPwdFragment());//修改密码的fragment
 			break;
 		case 6:
-			setFragmentAndData(bundle,new DetailsFragment());//修改密码的fragment
+			setFragmentAndData(bundle,new DetailsListsFragment());//修改密码的fragment
 			break;
 		default:
 			break;

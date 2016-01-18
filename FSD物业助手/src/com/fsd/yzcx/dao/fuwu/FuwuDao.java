@@ -1,9 +1,5 @@
 package com.fsd.yzcx.dao.fuwu;
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.tools.http.BaseHttpTools;
 import com.fsd.yzcx.tools.http.DialogHttp;
@@ -98,8 +94,22 @@ public class FuwuDao {
 		dialogHttp.send();//发送网络请求
 	}
 
-	
+	/**
+	 * 获取客服中心的联系电话
+	 */
+	public void fetchTelInfo(final MyFWdaoListener listener){
+		RequestParams params = new RequestParams();
+		params.addBodyParameter("configtype","telephone");
+		//带进度条的网络请求
+		BaseHttpTools dialogHttp = new DialogHttp(context,CONFIG, params, "提交服务订单", new MyHttpListener() {
+			public void fetchResponse(String response) {
+				listener.fetchInfo(response);//回调接口
+			}
+		});
 
+		dialogHttp.send();//发送网络请求
+	}
+	
 	
 	/**
 	 * 

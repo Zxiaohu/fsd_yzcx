@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_line"
+    android:orientation="horizontal"
+    android:padding="@dimen/dimen_720maxspacing" >
+
+    <ImageView
+        android:id="@+id/iv_tip"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:src="@drawable/ic_menu_forward" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="@dimen/dimen_720maxspacing"
+        android:layout_weight="9"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="您的订单怎怎么了*********"
+            android:textColor="@color/black"
+            android:textSize="@dimen/medium" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left|top"
+            android:text="12:dh:25521"
+            android:textColor="@color/huise"
+            android:textSize="@dimen/medium" />
+    </LinearLayout>
+
+</LinearLayout>

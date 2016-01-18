@@ -1,5 +1,4 @@
 package com.fsd.yzcx.ui.view.toolsview;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;

@@ -1,10 +1,8 @@
 package com.fsd.yzcx.ui.fragment.user;
-import java.util.List;
-
 import com.fsd.yzcx.R;
 import com.fsd.yzcx.dao.db.SharedPfDao;
 import com.fsd.yzcx.dao.order.OrderDao;
-import com.fsd.yzcx.dao.order.OrderDao.FetchDetailsListener;
+import com.fsd.yzcx.dao.order.FetchListener;
 import com.fsd.yzcx.dao.user.UserDao;
 import com.fsd.yzcx.dao.user.Param;
 import com.fsd.yzcx.dao.user.UserDao.UserDaoListener;
@@ -14,7 +12,6 @@ import com.fsd.yzcx.tools.LogUtil;
 import com.fsd.yzcx.tools.SystemTools;
 import com.fsd.yzcx.ui.actvity.LoginActivity;
 import com.fsd.yzcx.ui.actvity.MainActivity;
-import com.fsd.yzcx.ui.actvity.MapActivity;
 import com.fsd.yzcx.ui.actvity.TempActivity;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
 import com.fsd.yzcx.ui.view.dialog.TipDialog;
@@ -118,7 +115,7 @@ public class UserCenterFragment extends BaseFragment {
 					//						TempActivity.openFragment(mActivity, 6, SharedPfDao.queryStr(Param.DETAILS.getName()));
 					//					}
 					OrderDao dao = new OrderDao(mActivity);//订单请求对象
-					dao.fetchDetails(SharedPfDao.queryStr(Param.UNAME.getName()),new FetchDetailsListener() {
+					dao.fetchDetails(SharedPfDao.queryStr(Param.UNAME.getName()),new FetchListener() {
 						public void getDetails(String response) {
 							LogUtil.e("test1", response);
 							//SharedPfDao.insertData(Param.DETAILS.getName(), response);

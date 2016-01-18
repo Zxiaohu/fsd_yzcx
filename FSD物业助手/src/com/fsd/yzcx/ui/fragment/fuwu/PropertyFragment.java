@@ -22,6 +22,12 @@ import com.fsd.yzcx.ui.helper.RoomSelectHelper;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
+/**
+ * PropertyFragment
+ * @author zxh
+ * 日常报修的fragment
+ * 2016年1月18日16:06:49
+ */
 public class PropertyFragment extends BaseFragment {
 
 
