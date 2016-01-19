@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fsd.yzcx.R;
+import com.fsd.yzcx.ui.actvity.base.MyApplication;
 import com.fsd.yzcx.ui.fragment.base.BaseFragment;
 /**
  * DetailsFragment

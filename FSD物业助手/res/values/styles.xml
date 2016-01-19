@@ -2,7 +2,7 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light"></style>
 
@@ -107,17 +107,20 @@
         <item name="android:paddingLeft">@dimen/dimen_720maxspacing</item>
         <item name="android:textSize">@dimen/micro</item>
     </style>
+
     <style name="style_diglog_btn" parent="android:Widget.Holo.Light.Button">
         <item name="android:background">@drawable/seletor_dialog_btn</item>
         <item name="android:textColor">@color/blue2</item>
         <item name="android:textSize">@dimen/small</item>
     </style>
+
     <style name="style_btn_fuwu" parent="android:Widget.Holo.Light.Button">
         <item name="android:background">@drawable/seletor_info_btn</item>
         <item name="android:layout_margin">@dimen/dimen_720minspacing</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/medium</item>
     </style>
+
     <style name="style_lv_base">
         <item name="android:divider">@color/huise1</item>
         <item name="android:dividerHeight">@dimen/dimen_720maxspacing</item>
@@ -125,4 +128,14 @@
         <item name="android:layout_margin">@dimen/dimen_720maxspacing</item>
         <item name="android:listSelector">@null</item>
     </style>
+
+    <style name="style_details_tv">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/dimen_720maxspacing</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/small</item>
+        <item name="android:background">@color/blue4</item>
+        <item name="android:layout_height">@dimen/dimen_720height</item>
+    </style>
+
 </resources>
